@@ -1,0 +1,188 @@
+.application-card {
+    background: white;
+  
+    border: 1px solid #e5e7eb;
+  
+    border-radius: 14px;
+  
+    padding: 22px;
+  
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .application-card:hover {
+    transform: translateY(-2px);
+  
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  }
+  
+  
+  /* Header */
+  
+  .application-header {
+    display: flex;
+  
+    align-items: flex-start;
+  
+    gap: 15px;
+  }
+  
+  .company-logo {
+    width: 50px;
+    height: 50px;
+  
+    display: flex;
+  
+    align-items: center;
+    justify-content: center;
+  
+    flex-shrink: 0;
+  
+    border-radius: 10px;
+  
+    background: #eef2ff;
+  
+    font-size: 20px;
+  
+    font-weight: 700;
+  }
+  
+  .application-info {
+    flex: 1;
+  }
+  
+  .application-info h3 {
+    margin: 0 0 6px;
+  
+    font-size: 17px;
+  }
+  
+  .company {
+    margin: 0 0 5px;
+  
+    font-weight: 600;
+  }
+  
+  .location {
+    margin: 0;
+  
+    color: #6b7280;
+  
+    font-size: 13px;
+  }
+  
+  
+  /* Status */
+  
+  .status {
+    padding: 6px 10px;
+  
+    border-radius: 20px;
+  
+    font-size: 12px;
+  
+    font-weight: 700;
+  }
+  
+  .status.pending {
+    background: #fff7ed;
+    color: #c2410c;
+  }
+  
+  .status.shortlisted {
+    background: #ecfdf5;
+    color: #047857;
+  }
+  
+  .status.rejected {
+    background: #fef2f2;
+    color: #b91c1c;
+  }
+  
+  .status.accepted {
+    background: #eff6ff;
+    color: #1d4ed8;
+  }
+  
+  
+  /* Meta */
+  
+  .application-meta {
+    display: grid;
+  
+    grid-template-columns: repeat(3, 1fr);
+  
+    gap: 15px;
+  
+    margin-top: 22px;
+  
+    padding: 18px 0;
+  
+    border-top: 1px solid #f0f0f0;
+  
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .application-meta div {
+    display: flex;
+  
+    flex-direction: column;
+  
+    gap: 5px;
+  }
+  
+  .label {
+    color: #6b7280;
+  
+    font-size: 12px;
+  }
+  
+  .application-meta strong {
+    font-size: 13px;
+  }
+  
+  
+  /* Footer */
+  
+  .application-footer {
+    display: flex;
+  
+    justify-content: flex-end;
+  
+    margin-top: 16px;
+  }
+  
+  .details-button {
+    padding: 9px 14px;
+  
+    border-radius: 7px;
+  
+    background: #111827;
+  
+    color: white;
+  
+    text-decoration: none;
+  
+    font-size: 13px;
+  
+    font-weight: 600;
+  }
+  
+  
+  /* Responsive */
+  
+  @media (max-width: 600px) {
+  
+    .application-header {
+      flex-wrap: wrap;
+    }
+  
+    .status {
+      margin-left: 65px;
+    }
+  
+    .application-meta {
+      grid-template-columns: 1fr;
+    }
+  
+  }

@@ -1,0 +1,105 @@
+<div class="dashboard-page">
+
+    <!-- Page Header -->
+    <header class="page-header">
+  
+      <div>
+        <h1>Welcome, {{ candidateName }}</h1>
+  
+        <p>
+          Here is what's happening with your job search.
+        </p>
+      </div>
+  
+    </header>
+  
+  
+    <!-- Statistics -->
+    <section class="stats-grid">
+  
+      <div class="stat-card">
+  
+        <div class="stat-icon">
+          📄
+        </div>
+  
+        <div>
+          <p>Applications</p>
+          <h2>{{ stats.applications }}</h2>
+        </div>
+  
+      </div>
+  
+  
+      <div class="stat-card">
+  
+        <div class="stat-icon">
+          ⏳
+        </div>
+  
+        <div>
+          <p>Pending Applications</p>
+          <h2>{{ stats.pending }}</h2>
+        </div>
+  
+      </div>
+  
+  
+      <div class="stat-card">
+  
+        <div class="stat-icon">
+          ⭐
+        </div>
+  
+        <div>
+          <p>Shortlisted</p>
+          <h2>{{ stats.shortlisted }}</h2>
+        </div>
+  
+      </div>
+  
+    </section>
+  
+  
+    <!-- Recommended Jobs -->
+    <section class="section">
+  
+      <div class="section-header">
+  
+        <div class="section-title">
+  
+          <h2>
+            Recommended Jobs
+          </h2>
+  
+          <p>
+            Opportunities that match your skills
+          </p>
+  
+        </div>
+  
+        <a
+          href="/candidate/jobs"
+          class="view-all">
+          View all →
+        </a>
+  
+      </div>
+  
+  
+      <!-- Jobs -->
+      <div class="jobs-grid">
+  
+        @for (job of recommendedJobs; track job.id) {
+  
+          <app-job-card
+            [job]="job">
+          </app-job-card>
+  
+        }
+  
+      </div>
+  
+    </section>
+  
+  </div>

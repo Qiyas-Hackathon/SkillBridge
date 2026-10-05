@@ -1,0 +1,478 @@
+<div class="profile-page">
+
+    <!-- ==========================================
+         PAGE HEADER
+    =========================================== -->
+  
+    <header class="page-header">
+  
+      <div>
+        <h1>My Profile</h1>
+  
+        <p>
+          Manage your personal information, skills and professional experience.
+        </p>
+      </div>
+  
+      @if (!isEditing) {
+  
+        <button
+          type="button"
+          class="edit-button"
+          (click)="editProfile()">
+  
+          ✏ Edit Profile
+  
+        </button>
+  
+      }
+  
+    </header>
+  
+  
+    <!-- ==========================================
+         PROFILE VIEW
+    =========================================== -->
+  
+    @if (!isEditing) {
+  
+      <section class="profile-card">
+  
+        <!-- Profile Header -->
+  
+        <div class="profile-header">
+  
+          <div class="profile-avatar">
+            {{ candidate.fullName.charAt(0) }}
+          </div>
+  
+          <div class="profile-header-info">
+  
+            <h2>
+              {{ candidate.fullName }}
+            </h2>
+  
+            <p class="headline">
+              {{ candidate.headline }}
+            </p>
+  
+            <p class="location">
+              📍 {{ candidate.location }}
+            </p>
+  
+          </div>
+  
+        </div>
+  
+  
+        <!-- Contact -->
+  
+        <div class="profile-section">
+  
+          <h3>Contact Information</h3>
+  
+          <div class="contact-grid">
+  
+            <div class="contact-item">
+  
+              <span class="label">
+                Email
+              </span>
+  
+              <strong>
+                {{ candidate.email }}
+              </strong>
+  
+            </div>
+  
+  
+            <div class="contact-item">
+  
+              <span class="label">
+                Phone
+              </span>
+  
+              <strong>
+                {{ candidate.phone }}
+              </strong>
+  
+            </div>
+  
+          </div>
+  
+        </div>
+  
+  
+        <!-- About -->
+  
+        <div class="profile-section">
+  
+          <h3>Professional Summary</h3>
+  
+          <p>
+            {{ candidate.summary }}
+          </p>
+  
+        </div>
+  
+  
+        <!-- Skills -->
+  
+        <div class="profile-section">
+  
+          <h3>Skills</h3>
+  
+          <div class="skills-list">
+  
+            @for (skill of candidate.skills; track skill) {
+  
+              <span class="skill">
+                {{ skill }}
+              </span>
+  
+            }
+  
+          </div>
+  
+        </div>
+  
+  
+        <!-- Education -->
+  
+        <div class="profile-section">
+  
+          <h3>Education</h3>
+  
+          @for (
+            education of candidate.education;
+            track education.degree
+          ) {
+  
+            <div class="education-item">
+  
+              <h4>
+                {{ education.degree }}
+              </h4>
+  
+              <p class="institution">
+                {{ education.institution }}
+              </p>
+  
+              <p class="year">
+                {{ education.year }}
+              </p>
+  
+            </div>
+  
+          }
+  
+        </div>
+  
+  
+        <!-- Experience -->
+  
+        <div class="profile-section">
+  
+          <h3>Experience</h3>
+  
+          @for (
+            experience of candidate.experience;
+            track experience.position
+          ) {
+  
+            <div class="experience-item">
+  
+              <h4>
+                {{ experience.position }}
+              </h4>
+  
+              <p class="company">
+                {{ experience.company }}
+              </p>
+  
+              <p class="period">
+                {{ experience.period }}
+              </p>
+  
+              <p class="description">
+                {{ experience.description }}
+              </p>
+  
+            </div>
+  
+          }
+  
+        </div>
+  
+  
+        <!-- Professional Links -->
+  
+        <div class="profile-section">
+  
+          <h3>Professional Links</h3>
+  
+          <div class="profile-links">
+  
+            <a
+              [href]="candidate.github"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="profile-link">
+              GitHub →
+            </a>
+  
+            <a
+              [href]="candidate.linkedin"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="profile-link">
+              LinkedIn →
+            </a>
+  
+            <a
+              [href]="candidate.portfolio"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="profile-link">
+              Portfolio →
+            </a>
+  
+          </div>
+  
+        </div>
+  
+  
+        <!-- Resume -->
+  
+        <div class="profile-section">
+  
+          <h3>Resume</h3>
+  
+          <div class="resume-box">
+  
+            <div class="resume-icon">
+              📄
+            </div>
+  
+            <div class="resume-info">
+  
+              <strong>
+                {{ candidate.resume }}
+              </strong>
+  
+              <span>
+                Current resume
+              </span>
+  
+            </div>
+  
+            <button
+              type="button"
+              class="resume-button">
+              View
+            </button>
+  
+          </div>
+  
+        </div>
+  
+      </section>
+  
+    }
+  
+  
+    <!-- ==========================================
+         EDIT PROFILE
+    =========================================== -->
+  
+    @if (isEditing) {
+  
+      <section class="edit-card">
+  
+        <div class="edit-header">
+  
+          <div>
+            <h2>Edit Profile</h2>
+  
+            <p>
+              Update your personal and professional information.
+            </p>
+          </div>
+  
+        </div>
+  
+  
+        <!-- Full Name -->
+  
+        <div class="form-group">
+  
+          <label for="fullName">
+            Full Name
+          </label>
+  
+          <input
+            id="fullName"
+            type="text"
+            [(ngModel)]="candidate.fullName">
+  
+        </div>
+  
+  
+        <!-- Headline -->
+  
+        <div class="form-group">
+  
+          <label for="headline">
+            Professional Headline
+          </label>
+  
+          <input
+            id="headline"
+            type="text"
+            [(ngModel)]="candidate.headline">
+  
+        </div>
+  
+  
+        <!-- Location -->
+  
+        <div class="form-group">
+  
+          <label for="location">
+            Location
+          </label>
+  
+          <input
+            id="location"
+            type="text"
+            [(ngModel)]="candidate.location">
+  
+        </div>
+  
+  
+        <!-- Email -->
+  
+        <div class="form-group">
+  
+          <label for="email">
+            Email
+          </label>
+  
+          <input
+            id="email"
+            type="email"
+            [(ngModel)]="candidate.email">
+  
+        </div>
+  
+  
+        <!-- Phone -->
+  
+        <div class="form-group">
+  
+          <label for="phone">
+            Phone Number
+          </label>
+  
+          <input
+            id="phone"
+            type="text"
+            [(ngModel)]="candidate.phone">
+  
+        </div>
+  
+  
+        <!-- Summary -->
+  
+        <div class="form-group">
+  
+          <label for="summary">
+            Professional Summary
+          </label>
+  
+          <textarea
+            id="summary"
+            rows="6"
+            [(ngModel)]="candidate.summary">
+          </textarea>
+  
+        </div>
+  
+  
+        <!-- GitHub -->
+  
+        <div class="form-group">
+  
+          <label for="github">
+            GitHub URL
+          </label>
+  
+          <input
+            id="github"
+            type="url"
+            [(ngModel)]="candidate.github">
+  
+        </div>
+  
+  
+        <!-- LinkedIn -->
+  
+        <div class="form-group">
+  
+          <label for="linkedin">
+            LinkedIn URL
+          </label>
+  
+          <input
+            id="linkedin"
+            type="url"
+            [(ngModel)]="candidate.linkedin">
+  
+        </div>
+  
+  
+        <!-- Portfolio -->
+  
+        <div class="form-group">
+  
+          <label for="portfolio">
+            Portfolio URL
+          </label>
+  
+          <input
+            id="portfolio"
+            type="url"
+            [(ngModel)]="candidate.portfolio">
+  
+        </div>
+  
+  
+        <!-- Actions -->
+  
+        <div class="edit-actions">
+  
+          <button
+            type="button"
+            class="cancel-button"
+            (click)="cancelEdit()">
+  
+            Cancel
+  
+          </button>
+  
+          <button
+            type="button"
+            class="save-button"
+            (click)="saveProfile()">
+  
+            Save Changes
+  
+          </button>
+  
+        </div>
+  
+      </section>
+  
+    }
+  
+  </div>
