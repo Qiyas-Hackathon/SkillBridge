@@ -1,0 +1,145 @@
+<div class="job-details-page">
+
+    <a
+      href="/candidate/jobs"
+      class="back-button">
+      ← Back to Opportunities
+    </a>
+  
+    <header class="job-header">
+  
+      <div class="company-logo">
+        {{ job.company.charAt(0) }}
+      </div>
+  
+      <div class="job-header-info">
+  
+        <h1>{{ job.title }}</h1>
+  
+        <p class="company">
+          {{ job.company }}
+        </p>
+  
+        <p class="location">
+          📍 {{ job.location }}
+        </p>
+  
+        <span class="job-type">
+          {{ job.jobType }}
+        </span>
+  
+      </div>
+  
+      <a
+        [href]="'/candidate/jobs/' + job.id + '/apply'"
+        class="apply-button">
+        Apply Now
+      </a>
+  
+    </header>
+  
+    <div class="details-grid">
+  
+      <main>
+  
+        <section class="details-card">
+  
+          <h2>Job Description</h2>
+  
+          <p>
+            {{ job.description }}
+          </p>
+  
+        </section>
+  
+        <section class="details-card">
+  
+          <h2>Responsibilities</h2>
+  
+          <ul class="responsibilities">
+  
+            @for (item of job.responsibilities; track item) {
+              <li>
+                {{ item }}
+              </li>
+            }
+  
+          </ul>
+  
+        </section>
+  
+        <section class="details-card">
+  
+          <h2>Qualifications</h2>
+  
+          <ul class="qualifications">
+  
+            @for (item of job.qualifications; track item) {
+              <li>
+                {{ item }}
+              </li>
+            }
+  
+          </ul>
+  
+        </section>
+  
+        <section class="details-card">
+  
+          <h2>Required Skills</h2>
+  
+          <app-skill-list
+            [skills]="job.skills">
+          </app-skill-list>
+  
+        </section>
+  
+      </main>
+  
+      <aside>
+  
+        <app-match-score
+          [score]="job.match">
+        </app-match-score>
+  
+        <section class="details-card">
+  
+          <h2>Job Information</h2>
+  
+          <div class="job-information">
+  
+            <div class="information-item">
+              <span>Salary</span>
+              <strong>{{ job.salary }}</strong>
+            </div>
+  
+            <div class="information-item">
+              <span>Job Type</span>
+              <strong>{{ job.jobType }}</strong>
+            </div>
+  
+            <div class="information-item">
+              <span>Location</span>
+              <strong>{{ job.location }}</strong>
+            </div>
+  
+            <div class="information-item">
+              <span>Posted</span>
+              <strong>{{ job.postedDate }}</strong>
+            </div>
+  
+          </div>
+  
+        </section>
+  
+        <a
+          [href]="'/candidate/jobs/' + job.id + '/apply'"
+          class="apply-button sidebar-apply">
+          Apply Now
+        </a>
+  
+      </aside>
+  
+    </div>
+  
+  </div>

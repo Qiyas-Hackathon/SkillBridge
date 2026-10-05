@@ -1,0 +1,68 @@
+<article class="application-card">
+
+    <div class="application-header">
+  
+      <div class="company-logo">
+        {{ application.company.charAt(0) }}
+      </div>
+  
+      <div class="application-info">
+  
+        <h3>
+          {{ application.jobTitle }}
+        </h3>
+  
+        <p class="company">
+          {{ application.company }}
+        </p>
+  
+        <p class="location">
+          📍 {{ application.location }}
+        </p>
+  
+      </div>
+  
+      <span
+        class="status"
+        [class]="application.status.toLowerCase()">
+  
+        {{ application.status }}
+  
+      </span>
+  
+    </div>
+  
+  
+    <div class="application-meta">
+  
+      <div>
+        <span class="label">Applied</span>
+        <strong>{{ application.appliedDate }}</strong>
+      </div>
+  
+      <div>
+        <span class="label">Match</span>
+        <strong>{{ application.match }}%</strong>
+      </div>
+  
+      <div>
+        <span class="label">Job Type</span>
+        <strong>{{ application.jobType }}</strong>
+      </div>
+  
+    </div>
+  
+  
+    <div class="application-footer">
+  
+      <a
+        [href]="'/candidate/applications/' + application.id"
+        class="details-button">
+  
+        View Application
+  
+      </a>
+  
+    </div>
+  
+  </article>

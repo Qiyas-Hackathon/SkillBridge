@@ -1,0 +1,230 @@
+.apply-page {
+    min-height: 100%;
+    padding: 35px;
+    max-width: 1000px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  
+  /* Cancel */
+  .cancel-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #4f46e5;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  
+  .cancel-button:hover {
+    color: #4338ca;
+    text-decoration: underline;
+  }
+  
+  /* Header */
+  .page-header {
+    margin-bottom: 25px;
+  }
+  
+  .page-header h1 {
+    margin: 0 0 8px;
+    color: #111827;
+    font-size: 30px;
+  }
+  
+  .page-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+  }
+  
+  /* Job summary */
+  .job-summary {
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  }
+  
+  .job-summary h2 {
+    margin: 0 0 8px;
+    color: #111827;
+    font-size: 20px;
+  }
+  
+  .job-summary p {
+    margin: 5px 0;
+    color: #6b7280;
+    font-size: 13px;
+  }
+  
+  /* Application form */
+  .application-form {
+    background: white;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 7px;
+    color: #111827;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    color: #111827;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    box-sizing: border-box;
+  }
+  
+  .form-group input {
+    height: 44px;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  }
+  
+  .form-group textarea {
+    min-height: 160px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+  
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: #9ca3af;
+  }
+  
+  /* Submit */
+  .submit-button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: #4f46e5;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .submit-button:hover {
+    background: #4338ca;
+  }
+  
+  /* Success */
+  .success-message {
+    background: white;
+    padding: 50px 35px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  }
+  
+  .success-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ecfdf5;
+    color: #047857;
+    font-size: 30px;
+    font-weight: 700;
+  }
+  
+  .success-message h2 {
+    margin: 0 0 10px;
+    color: #111827;
+    font-size: 25px;
+  }
+  
+  .success-message p {
+    max-width: 600px;
+    margin: 0 auto 28px;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  
+  .success-message strong {
+    color: #111827;
+  }
+  
+  /* Success buttons */
+  .success-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+  
+  .success-button {
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: #4f46e5;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  
+  .success-button:hover {
+    background: #4338ca;
+  }
+  
+  .success-button.secondary {
+    background: #111827;
+  }
+  
+  .success-button.secondary:hover {
+    background: #1f2937;
+  }
+  
+  /* Mobile */
+  @media (max-width: 600px) {
+  
+    .apply-page {
+      padding: 20px;
+    }
+  
+    .application-form {
+      padding: 20px;
+    }
+  
+    .success-message {
+      padding: 35px 20px;
+    }
+  
+    .success-actions {
+      flex-direction: column;
+    }
+  
+    .success-button {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  
+  }

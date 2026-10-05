@@ -1,0 +1,110 @@
+<div class="applications-page">
+
+    <header class="page-header">
+  
+      <div>
+  
+        <h1>My Applications</h1>
+  
+        <p>
+          Track the jobs you have applied for.
+        </p>
+  
+      </div>
+  
+    </header>
+  
+  
+    <!-- Filters -->
+  
+    <section class="filters">
+  
+      <button
+        [class.active]="selectedStatus === 'All'"
+        (click)="selectedStatus = 'All'">
+  
+        All
+  
+      </button>
+  
+      <button
+        [class.active]="selectedStatus === 'Pending'"
+        (click)="selectedStatus = 'Pending'">
+  
+        Pending
+  
+      </button>
+  
+      <button
+        [class.active]="selectedStatus === 'Shortlisted'"
+        (click)="selectedStatus = 'Shortlisted'">
+  
+        Shortlisted
+  
+      </button>
+  
+      <button
+        [class.active]="selectedStatus === 'Rejected'"
+        (click)="selectedStatus = 'Rejected'">
+  
+        Rejected
+  
+      </button>
+  
+    </section>
+  
+  
+    <!-- Applications -->
+  
+    <section class="applications-section">
+  
+      <div class="results-header">
+  
+        <h2>
+          Applications
+        </h2>
+  
+        <span>
+          {{ filteredApplications.length }} applications
+        </span>
+  
+      </div>
+  
+  
+      <div class="applications-grid">
+  
+        @for (
+          application of filteredApplications;
+          track application.id
+        ) {
+  
+          <app-application-card
+            [application]="application">
+          </app-application-card>
+  
+        }
+  
+      </div>
+  
+  
+      @if (filteredApplications.length === 0) {
+  
+        <div class="empty-state">
+  
+          <div class="empty-icon">
+            📄
+          </div>
+  
+          <h3>No applications found</h3>
+  
+          <p>
+            You don't have any applications with this status.
+          </p>
+  
+        </div>
+  
+      }
+  
+    </section>
+  
+  </div>

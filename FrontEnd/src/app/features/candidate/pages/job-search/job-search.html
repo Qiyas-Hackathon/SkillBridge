@@ -1,0 +1,64 @@
+<div class="job-search-page">
+
+    <header class="page-header">
+      <h1>Find Your Next Opportunity</h1>
+      <p>Discover jobs and internships that match your skills.</p>
+    </header>
+  
+    <section class="filters">
+  
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+  
+        <input
+          type="text"
+          placeholder="Search jobs, companies, or skills..."
+          [(ngModel)]="searchTerm">
+      </div>
+  
+      <select [(ngModel)]="selectedLocation">
+        <option value="All Locations">All Locations</option>
+        <option value="Addis Ababa">Addis Ababa</option>
+        <option value="Remote">Remote</option>
+      </select>
+  
+      <select [(ngModel)]="selectedJobType">
+        <option value="All Types">All Types</option>
+        <option value="Full-time">Full-time</option>
+        <option value="Internship">Internship</option>
+      </select>
+  
+    </section>
+  
+    <div class="results-header">
+      <h2>Available Opportunities</h2>
+      <span>{{ filteredJobs.length }} opportunities found</span>
+    </div>
+  
+    <section class="jobs-grid">
+  
+      @for (job of filteredJobs; track job.id) {
+  
+        <app-job-card
+          [job]="job">
+        </app-job-card>
+  
+      }
+  
+    </section>
+  
+    @if (filteredJobs.length === 0) {
+  
+      <div class="empty-state">
+  
+        <h3>No opportunities found</h3>
+  
+        <p>
+          Try changing your search or filters.
+        </p>
+  
+      </div>
+  
+    }
+  
+  </div>

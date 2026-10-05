@@ -1,0 +1,52 @@
+
+.match-score {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.score-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #eef2ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.score {
+  font-size: 22px;
+  font-weight: 700;
+  color: #4f46e5;
+}
+
+.label {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.score-info h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.score-info p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+@media (max-width: 500px) {
+  .match-score {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
