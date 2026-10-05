@@ -4,7 +4,7 @@ public class EmployerProfile
 {
     public int Id { get; set; }
 
-    public Guid UserId { get; set; }
+    public int UserId { get; set; }
 
     public string CompanyName { get; set; } = string.Empty;
 
@@ -12,6 +12,7 @@ public class EmployerProfile
 
     public string? LogoPath { get; set; }
 
+    public bool IsDeleted { get; set; } = false;
     public ICollection<Job> Jobs { get; set; }
         = new List<Job>();
 }

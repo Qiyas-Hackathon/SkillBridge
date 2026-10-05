@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SkillBridge.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+85626e18d697396a8e92af7e6e27094d7d096e9c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3803ad943d59bd4b8aa5ecd77abaf9b398df5a62")]
 [assembly: System.Reflection.AssemblyProductAttribute("SkillBridge.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SkillBridge.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

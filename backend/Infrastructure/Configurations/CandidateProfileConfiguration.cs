@@ -29,7 +29,7 @@ public class CandidateProfileConfiguration : IEntityTypeConfiguration<CandidateP
         builder.Property(x => x.FieldOfStudy) 
             .HasMaxLength(150);
 
-        builder.Property(x => x.EducationLevel) 
+        builder.Property(x => x.DegreeLevel) 
             .HasMaxLength(100);
 
         builder.Property(x => x.GitHubUrl)
