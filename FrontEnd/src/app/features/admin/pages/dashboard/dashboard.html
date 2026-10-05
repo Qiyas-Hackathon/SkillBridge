@@ -1,0 +1,117 @@
+<div class="admin-page">
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      <h2>SkillBridge</h2>
+      <span>Admin Panel</span>
+    </div>
+
+    <nav>
+      <a routerLink="/admin/dashboard" class="nav-link active">
+        Dashboard
+      </a>
+
+      <a routerLink="/admin/users" class="nav-link">
+        Users
+      </a>
+
+      <a routerLink="/admin/companies" class="nav-link">
+        Companies
+      </a>
+    </nav>
+
+    <button class="logout-button">
+      Logout
+    </button>
+
+  </aside>
+
+
+  <main class="main-content">
+
+    <header class="topbar">
+      <div>
+        <h1>Admin Dashboard</h1>
+        <p>Manage SkillBridge users and employers.</p>
+      </div>
+
+      <div class="admin-profile">
+        <span class="avatar">A</span>
+        <span>Admin</span>
+      </div>
+    </header>
+
+
+    <section class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+
+        <div>
+          <p>Total Users</p>
+          <h2>{{ totalUsers }}</h2>
+        </div>
+      </div>
+
+
+      <div class="stat-card">
+        <div class="stat-icon">🎓</div>
+
+        <div>
+          <p>Candidates</p>
+          <h2>{{ totalCandidates }}</h2>
+        </div>
+      </div>
+
+
+      <div class="stat-card">
+        <div class="stat-icon">🏢</div>
+
+        <div>
+          <p>Employers</p>
+          <h2>{{ totalEmployers }}</h2>
+        </div>
+      </div>
+
+
+      <div class="stat-card">
+        <div class="stat-icon">💼</div>
+
+        <div>
+          <p>Jobs</p>
+          <h2>{{ totalJobs }}</h2>
+        </div>
+      </div>
+
+    </section>
+
+
+    <section class="welcome-card">
+
+      <div>
+        <h2>Welcome to SkillBridge Admin</h2>
+
+        <p>
+          From here you can manage users and employers
+          registered on the platform.
+        </p>
+      </div>
+
+      <div class="quick-actions">
+
+        <a routerLink="/admin/users" class="action-button">
+          Manage Users
+        </a>
+
+        <a routerLink="/admin/companies" class="action-button secondary">
+          Manage Companies
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

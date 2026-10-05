@@ -1,0 +1,307 @@
+<div class="register-page">
+
+  <div class="register-container">
+
+    <!-- Header -->
+
+    <div class="register-header">
+      <div class="logo">
+        Skill<span>Bridge</span>
+      </div>
+
+      <h1>Create your account</h1>
+
+      <p>
+        Choose your account type to get started.
+      </p>
+    </div>
+
+
+    <!-- Account Type -->
+
+    <div class="account-types">
+
+      <button
+        type="button"
+        class="account-type"
+        [class.selected]="accountType === 'candidate'"
+        (click)="selectAccountType('candidate')"
+      >
+
+        <div class="account-icon">👤</div>
+
+        <div>
+          <h3>Job Seeker</h3>
+
+          <p>
+            Find jobs that match your skills.
+          </p>
+        </div>
+
+      </button>
+
+
+      <button
+        type="button"
+        class="account-type"
+        [class.selected]="accountType === 'company'"
+        (click)="selectAccountType('company')"
+      >
+
+        <div class="account-icon">🏢</div>
+
+        <div>
+          <h3>Company</h3>
+
+          <p>
+            Find skilled candidates for your jobs.
+          </p>
+        </div>
+
+      </button>
+
+    </div>
+
+
+    <!-- Candidate Registration -->
+
+    @if (accountType === 'candidate') {
+
+      <form class="register-form">
+
+        <h2>Job Seeker Registration</h2>
+
+        <div class="form-group">
+
+          <label for="candidateName">
+            Full Name
+          </label>
+
+          <input
+            id="candidateName"
+            type="text"
+            placeholder="Enter your full name"
+          />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="candidateEmail">
+            Email
+          </label>
+
+          <input
+            id="candidateEmail"
+            type="email"
+            placeholder="Enter your email"
+          />
+
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label for="candidatePassword">
+              Password
+            </label>
+
+            <input
+              id="candidatePassword"
+              type="password"
+              placeholder="Create a password"
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="candidateConfirmPassword">
+              Confirm Password
+            </label>
+
+            <input
+              id="candidateConfirmPassword"
+              type="password"
+              placeholder="Confirm your password"
+            />
+
+          </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="skills">
+            Skills
+          </label>
+
+          <input
+            id="skills"
+            type="text"
+            placeholder="e.g. Angular, C#, SQL"
+          />
+
+          <small>
+            Separate multiple skills with commas.
+          </small>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="github">
+            GitHub URL
+            <span>(Optional)</span>
+          </label>
+
+          <input
+            id="github"
+            type="url"
+            placeholder="https://github.com/username"
+          />
+
+        </div>
+
+
+        <button type="submit" class="submit-btn">
+          Create Job Seeker Account
+        </button>
+
+      </form>
+
+    }
+
+
+    <!-- Company Registration -->
+
+    @if (accountType === 'company') {
+
+      <form class="register-form">
+
+        <h2>Company Registration</h2>
+
+        <div class="form-group">
+
+          <label for="companyName">
+            Company Name
+          </label>
+
+          <input
+            id="companyName"
+            type="text"
+            placeholder="Enter company name"
+          />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="companyEmail">
+            Company Email
+          </label>
+
+          <input
+            id="companyEmail"
+            type="email"
+            placeholder="company@example.com"
+          />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="companyDescription">
+            Company Description
+          </label>
+
+          <textarea
+            id="companyDescription"
+            rows="4"
+            placeholder="Tell us about your company"
+          ></textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="companyLocation">
+            Location
+          </label>
+
+          <input
+            id="companyLocation"
+            type="text"
+            placeholder="e.g. Addis Ababa, Ethiopia"
+          />
+
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label for="companyPassword">
+              Password
+            </label>
+
+            <input
+              id="companyPassword"
+              type="password"
+              placeholder="Create a password"
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="companyConfirmPassword">
+              Confirm Password
+            </label>
+
+            <input
+              id="companyConfirmPassword"
+              type="password"
+              placeholder="Confirm your password"
+            />
+
+          </div>
+
+        </div>
+
+
+        <button type="submit" class="submit-btn">
+          Create Company Account
+        </button>
+
+      </form>
+
+    }
+
+
+    <div class="login-link">
+
+      <p>
+        Already have an account?
+
+        <a routerLink="/login">
+          Login
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
