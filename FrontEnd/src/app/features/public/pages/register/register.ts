@@ -4,6 +4,7 @@ type AccountType = 'candidate' | 'company';
 
 @Component({
   imports: [RouterLink],
+  standalone: true,
   selector: 'app-register',
   styleUrl: './register.css',
   templateUrl: './register.html',
