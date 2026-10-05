@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "SkillBridge.Application/1.0.0": {
+        "dependencies": {
+          "SkillBridge.Domain": "1.0.0"
+        },
+        "runtime": {
+          "SkillBridge.Application.dll": {}
+        }
+      },
+      "SkillBridge.Domain/1.0.0": {
+        "runtime": {
+          "SkillBridge.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SkillBridge.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SkillBridge.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
