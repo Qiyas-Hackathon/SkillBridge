@@ -1,0 +1,2 @@
+<h1>{{ jobId ? 'Edit job' : 'Post a new job' }}</h1>
+<app-job-form [job]="job" (submitted)="save($event)" />

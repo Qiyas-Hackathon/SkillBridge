@@ -1,0 +1,40 @@
+<div class="header">
+  <h1>Manage jobs</h1>
+  <a routerLink="/company/post-job" class="primary">+ Post job</a>
+</div>
+
+@if (jobs.length === 0) {
+  <p class="empty">You haven't posted any jobs yet.</p>
+} @else {
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Type</th>
+        <th>Location</th>
+        <th>Deadline</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (job of jobs; track job.id) {
+        <tr>
+          <td>{{ job.title }}</td>
+          <td>{{ job.type }}</td>
+          <td>{{ job.location }}</td>
+          <td>{{ job.deadline | date: 'mediumDate' }}</td>
+          <td>
+            <span class="badge" [class.closed]="job.status === 'closed'">{{ job.status }}</span>
+          </td>
+          <td class="actions">
+            <a [routerLink]="['/company/jobs', job.id, 'applicants']">Applicants</a>
+            <a [routerLink]="['/company/jobs', job.id, 'edit']">Edit</a>
+            <button (click)="toggle(job)">{{ job.status === 'open' ? 'Close' : 'Reopen' }}</button>
+            <button class="danger" (click)="remove(job)">Delete</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

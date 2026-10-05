@@ -1,0 +1,9 @@
+@if (editable) {
+  <select [value]="status" (change)="onChange($event)">
+    @for (s of statuses; track s) {
+      <option [value]="s" [selected]="s === status">{{ s }}</option>
+    }
+  </select>
+} @else {
+  <span class="badge" [class]="status">{{ status }}</span>
+}

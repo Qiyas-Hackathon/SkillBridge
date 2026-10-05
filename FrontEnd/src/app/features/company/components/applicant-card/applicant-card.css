@@ -1,0 +1,35 @@
+.card {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 16px;
+  background: #fff;
+}
+
+.top,
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h3 { margin: 0; }
+
+.email {
+  color: #6b7280;
+  margin: 4px 0 8px;
+}
+
+.score {
+  font-weight: 600;
+  color: #059669;
+}
+
+.skills { margin-bottom: 12px; }
+
+.chip {
+  background: #f3f4f6;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-right: 6px;
+  font-size: 12px;
+}

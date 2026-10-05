@@ -1,0 +1,39 @@
+<p>applicant-details works!</p>
+@if (applicant) {
+  <a [routerLink]="['/company/jobs', applicant.jobId, 'applicants']">← Back to applicants</a>
+
+  <h1>{{ applicant.name }}</h1>
+  <p>{{ applicant.email }} · Applied {{ applicant.appliedAt | date: 'mediumDate' }}</p>
+
+  <section>
+    <h3>Match score</h3>
+    <strong>{{ applicant.matchScore }}%</strong>
+  </section>
+
+  <section>
+    <h3>Experience</h3>
+    <p>{{ applicant.experience }}</p>
+  </section>
+
+  <section>
+    <h3>About</h3>
+    <p>{{ applicant.bio }}</p>
+  </section>
+
+  <section>
+    <h3>Skills</h3>
+    @for (s of applicant.skills; track s) {
+      <span class="chip">{{ s }}</span>
+    }
+  </section>
+
+  <section>
+    <h3>Application status</h3>
+    <app-applicant-status
+      [status]="applicant.status"
+      [editable]="true"
+      (changed)="updateStatus($event)" />
+  </section>
+} @else {
+  <p>Applicant not found.</p>
+}

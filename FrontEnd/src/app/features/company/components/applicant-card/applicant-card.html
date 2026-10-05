@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="top">
+    <h3>{{ applicant.name }}</h3>
+    <span class="score">{{ applicant.matchScore }}% match</span>
+  </div>
+
+  <p class="email">{{ applicant.email }}</p>
+
+  <div class="skills">
+    @for (s of applicant.skills; track s) {
+      <span class="chip">{{ s }}</span>
+    }
+  </div>
+
+  <div class="bottom">
+    <app-applicant-status [status]="applicant.status" />
+    <a [routerLink]="['/company/applicants', applicant.id]">View details</a>
+  </div>
+</div>
