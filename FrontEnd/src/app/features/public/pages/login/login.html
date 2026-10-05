@@ -1,0 +1,51 @@
+<div class="login-page">
+
+  <div class="login-card">
+
+    <div class="login-header">
+      <h1>Welcome Back</h1>
+      <p>Login to your SkillBridge account</p>
+    </div>
+
+    <form (submit)="onSubmit(); $event.preventDefault()">
+
+      <div class="form-group">
+        <label for="email">Email</label>
+
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="Enter your email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Enter your password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="login-button">
+        Login
+      </button>
+
+    </form>
+
+    <div class="register-link">
+      <span>Don't have an account?</span>
+      <a routerLink="/register">Create an account</a>
+    </div>
+
+  </div>
+
+</div>

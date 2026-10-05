@@ -1,0 +1,114 @@
+<div class="companies-page">
+
+  <a routerLink="/admin/dashboard" class="back-button">
+    ← Back to Dashboard
+  </a>
+
+  <div class="page-header">
+    <div>
+      <h1>Company Management</h1>
+      <p>Manage registered companies on SkillBridge.</p>
+    </div>
+  </div>
+
+  <div class="companies-card">
+
+    <div class="card-header">
+      <div>
+        <h2>Registered Companies</h2>
+        <p>Review and approve company registrations.</p>
+      </div>
+
+      <div class="company-count">
+        {{ companies.length }} Companies
+      </div>
+    </div>
+
+    <div class="table-container">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Company</th>
+            <th>Contact</th>
+            <th>Email</th>
+            <th>Website</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          @for (company of companies; track company.id) {
+
+            <tr>
+
+              <td>{{ company.id }}</td>
+
+              <td>
+                <strong>{{ company.companyName }}</strong>
+              </td>
+
+              <td>{{ company.contactName }}</td>
+
+              <td>{{ company.email }}</td>
+
+              <td>
+                <a
+                  [href]="company.website"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Visit
+                </a>
+              </td>
+
+              <td>
+
+                <span
+                  class="status-badge"
+                  [class.pending]="company.status === 'Pending'"
+                  [class.approved]="company.status === 'Approved'"
+                >
+                  {{ company.status }}
+                </span>
+
+              </td>
+
+              <td>
+
+                @if (company.status === 'Pending') {
+
+                  <button
+                    class="approve-button"
+                    (click)="approveCompany(company)"
+                  >
+                    Approve
+                  </button>
+
+                } @else {
+
+                  <span class="approved-text">
+                    ✓ Approved
+                  </span>
+
+                }
+
+              </td>
+
+            </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
