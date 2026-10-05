@@ -1,1 +1,76 @@
-<p>users works!</p>
+<div class="users-page">
+
+  <a routerLink="/admin/dashboard" class="back-button">
+    ← Back
+  </a>
+
+  <div class="page-header">
+    <div>
+      <h1>Users</h1>
+      <p>Manage SkillBridge users.</p>
+    </div>
+  </div>
+
+  <div class="filters">
+
+    <input
+      type="text"
+      placeholder="Search by email..."
+      [(ngModel)]="searchTerm"
+    />
+
+    <select [(ngModel)]="selectedRole">
+      <option value="All">All Roles</option>
+      <option value="Candidate">Candidates</option>
+      <option value="Employer">Employers</option>
+    </select>
+
+  </div>
+
+  <div class="users-card">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        @for (user of filteredUsers; track user.id) {
+
+          <tr>
+
+            <td>{{ user.id }}</td>
+
+            <td>{{ user.email }}</td>
+
+            <td>
+              <span
+                class="role-badge"
+                [class.candidate]="user.role === 'Candidate'"
+                [class.employer]="user.role === 'Employer'"
+              >
+                {{ user.role }}
+              </span>
+            </td>
+
+            <td>
+              <button
+            class="view-button"
+  [routerLink]="['/admin/users', user.id]"
+>
+  View
+</button>
+            </td>
+
+          </tr>
+
+        }
+
+        

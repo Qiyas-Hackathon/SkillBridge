@@ -39,7 +39,11 @@ export const routes: Routes = [
           import('./features/admin/pages/users/users')
             .then(m => m.Users)
       },
-
+ {    path: 'users/:id',
+      loadComponent: () =>
+        import('./features/admin/pages/user-details/user-details')
+          .then(m => m.UserDetails)
+    },
       {
         path: 'companies',
         loadComponent: () =>
