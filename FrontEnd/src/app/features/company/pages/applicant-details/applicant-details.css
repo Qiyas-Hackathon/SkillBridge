@@ -1,0 +1,8 @@
+section { margin: 18px 0; }
+
+.chip {
+  background: #f3f4f6;
+  padding: 3px 10px;
+  border-radius: 10px;
+  margin-right: 6px;
+}

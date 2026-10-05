@@ -1,0 +1,77 @@
+<div class="user-details-page">
+
+  <a routerLink="/admin/users" class="back-button">
+    ← Back to Users
+  </a>
+
+  @if (user) {
+
+    <div class="page-header">
+      <div>
+        <h1>User Details</h1>
+        <p>View information about this SkillBridge user.</p>
+      </div>
+    </div>
+
+    <div class="details-card">
+
+      <div class="profile-header">
+
+        <div class="profile-avatar">
+          {{ user.email.charAt(0).toUpperCase() }}
+        </div>
+
+        <div>
+          <h2>{{ user.email }}</h2>
+
+          <span
+            class="role-badge"
+            [class.candidate]="user.role === 'Candidate'"
+            [class.employer]="user.role === 'Employer'"
+          >
+            {{ user.role }}
+          </span>
+        </div>
+
+      </div>
+
+      <div class="details-grid">
+
+        <div class="detail-item">
+          <span>User ID</span>
+          <strong>{{ user.id }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Email</span>
+          <strong>{{ user.email }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Role</span>
+          <strong>{{ user.role }}</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  } @else {
+
+    <div class="not-found">
+
+      <h2>User not found</h2>
+
+      <p>
+        The requested user does not exist.
+      </p>
+
+      <a routerLink="/admin/users">
+        Back to Users
+      </a>
+
+    </div>
+
+  }
+
+</div>

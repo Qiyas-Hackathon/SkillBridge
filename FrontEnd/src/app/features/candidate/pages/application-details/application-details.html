@@ -1,0 +1,366 @@
+
+<div class="application-details-page">
+
+  <!-- Back Button -->
+
+  <a
+    href="/candidate/applications"
+    class="back-button">
+
+    ← Back to Applications
+
+  </a>
+
+
+  <!-- Page Header -->
+
+  <header class="page-header">
+
+    <div class="company-logo">
+      {{ application.company.charAt(0) }}
+    </div>
+
+    <div class="header-info">
+
+      <h1>
+        {{ application.jobTitle }}
+      </h1>
+
+      <p class="company">
+        {{ application.company }}
+      </p>
+
+      <p class="location">
+        📍 {{ application.location }}
+      </p>
+
+    </div>
+
+    <span
+      class="status"
+      [class]="application.status.toLowerCase()">
+
+      {{ application.status }}
+
+    </span>
+
+  </header>
+
+
+  <!-- Application Summary -->
+
+  <section class="summary-card">
+
+    <div class="summary-item">
+
+      <span class="label">
+        Applied Date
+      </span>
+
+      <strong>
+        {{ application.appliedDate }}
+      </strong>
+
+    </div>
+
+
+    <div class="summary-item">
+
+      <span class="label">
+        Job Type
+      </span>
+
+      <strong>
+        {{ application.jobType }}
+      </strong>
+
+    </div>
+
+
+    <div class="summary-item">
+
+      <span class="label">
+        Salary
+      </span>
+
+      <strong>
+        {{ application.salary }}
+      </strong>
+
+    </div>
+
+
+    <div class="summary-item">
+
+      <span class="label">
+        Skill Match
+      </span>
+
+      <strong>
+        {{ application.match }}%
+      </strong>
+
+    </div>
+
+  </section>
+
+
+  <!-- Main Content -->
+
+  <div class="details-layout">
+
+
+    <!-- Left Content -->
+
+    <main class="main-content">
+
+
+      <!-- Application Status -->
+
+      <section class="details-card">
+
+        <div class="section-header">
+
+          <h2>
+            Application Status
+          </h2>
+
+          <span
+            class="status"
+            [class]="application.status.toLowerCase()">
+
+            {{ application.status }}
+
+          </span>
+
+        </div>
+
+
+        @if (application.status === 'Withdrawn') {
+
+          <div class="withdrawn-message">
+
+            <strong>
+              Application Withdrawn
+            </strong>
+
+            <p>
+              You have withdrawn this application.
+            </p>
+
+          </div>
+
+        } @else {
+
+          <p>
+            Your application is currently being reviewed by
+            {{ application.company }}.
+          </p>
+
+
+          @if (
+            application.status === 'Pending' ||
+            application.status === 'Shortlisted'
+          ) {
+
+            <button
+              type="button"
+              class="withdraw-button"
+              (click)="withdrawApplication()">
+
+              Withdraw Application
+
+            </button>
+
+          }
+
+        }
+
+      </section>
+
+
+      <!-- Cover Letter -->
+
+      <section class="details-card">
+
+        <h2>
+          Cover Letter
+        </h2>
+
+        <div class="cover-letter">
+
+          {{ application.coverLetter }}
+
+        </div>
+
+      </section>
+
+
+      <!-- Application Timeline -->
+
+      <section class="details-card">
+
+        <h2>
+          Application Timeline
+        </h2>
+
+        <div class="timeline">
+
+          @for (
+            item of application.timeline;
+            track item.title
+          ) {
+
+            <div class="timeline-item">
+
+              <div class="timeline-marker"></div>
+
+              <div class="timeline-content">
+
+                <h3>
+                  {{ item.title }}
+                </h3>
+
+                <span>
+                  {{ item.date }}
+                </span>
+
+                <p>
+                  {{ item.description }}
+                </p>
+
+              </div>
+
+            </div>
+
+          }
+
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <!-- Right Sidebar -->
+
+    <aside class="sidebar">
+
+
+      <!-- Resume -->
+
+      <section class="details-card">
+
+        <h2>
+          Resume
+        </h2>
+
+        <div class="resume-box">
+
+          <div class="resume-icon">
+            📄
+          </div>
+
+          <div>
+
+            <strong>
+              {{ application.resume }}
+            </strong>
+
+            <p>
+              Submitted with application
+            </p>
+
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          class="download-button">
+
+          View Resume
+
+        </button>
+
+      </section>
+
+
+      <!-- Portfolio -->
+
+      <section class="details-card">
+
+        <h2>
+          Portfolio
+        </h2>
+
+        <a
+          [href]="application.portfolio"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="portfolio-link">
+
+          View Portfolio →
+
+        </a>
+
+      </section>
+
+
+      <!-- Job Information -->
+
+      <section class="details-card">
+
+        <h2>
+          Job Information
+        </h2>
+
+        <div class="job-info">
+
+          <div>
+
+            <span>
+              Job Type
+            </span>
+
+            <strong>
+              {{ application.jobType }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Location
+            </span>
+
+            <strong>
+              {{ application.location }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Salary
+            </span>
+
+            <strong>
+              {{ application.salary }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </aside>
+
+  </div>
+
+</div>

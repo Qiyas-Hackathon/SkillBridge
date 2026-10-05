@@ -14,7 +14,7 @@ public class CandidateProfile
 
     public string? FieldOfStudy { get; set; } = string.Empty;
 
-    public string? EducationLevel { get; set; } = string.Empty;
+    public string? DegreeLevel { get; set; } = string.Empty;
 
     public int? GraduationYear { get; set; }
 
@@ -25,6 +25,7 @@ public class CandidateProfile
     public string? CvPath { get; set; }
 
     public string? ProfilePicturePath { get; set; }
+    public bool IsDeleted { get; set; } = false;
 
     public ICollection<CandidateSkill> CandidateSkills { get; set; }
         = new List<CandidateSkill>();

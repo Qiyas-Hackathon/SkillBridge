@@ -1,0 +1,52 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.primary {
+  background: #2563eb;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.badge {
+  background: #dcfce7;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+
+  &.closed { background: #e5e7eb; }
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  background: none;
+  color: #2563eb;
+
+  &.danger { color: #dc2626; }
+}
+
+.empty { color: #6b7280; }

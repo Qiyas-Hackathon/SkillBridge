@@ -1,0 +1,51 @@
+<article class="job-card">
+
+    <div class="job-card-header">
+  
+      <div class="company-logo">
+        {{ job.company.charAt(0) }}
+      </div>
+  
+      <span class="match">
+        {{ job.match }}% Match
+      </span>
+  
+    </div>
+  
+    <div class="job-info">
+  
+      <h3>{{ job.title }}</h3>
+  
+      <p class="company">
+        {{ job.company }}
+      </p>
+  
+      <p class="location">
+        📍 {{ job.location }}
+      </p>
+  
+      <span class="job-type">
+        {{ job.jobType }}
+      </span>
+  
+    </div>
+  
+    <app-skill-list
+      [skills]="job.skills">
+    </app-skill-list>
+  
+    <div class="job-card-footer">
+  
+      <span class="match-text">
+        {{ job.match }}% skill match
+      </span>
+  
+      <a
+        [href]="'/candidate/jobs/' + job.id"
+        class="details-button">
+        View Details
+      </a>
+  
+    </div>
+  
+  </article>

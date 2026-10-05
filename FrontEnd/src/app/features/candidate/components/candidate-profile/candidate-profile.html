@@ -1,0 +1,230 @@
+<div class="profile-card">
+
+    <!-- Profile Header -->
+  
+    <div class="profile-header">
+  
+      <div class="profile-avatar">
+        {{ candidate.name.charAt(0) }}
+      </div>
+  
+      <div class="profile-info">
+  
+        <h2>
+          {{ candidate.name }}
+        </h2>
+  
+        <p class="headline">
+          {{ candidate.headline }}
+        </p>
+  
+        <p class="location">
+          📍 {{ candidate.location }}
+        </p>
+  
+      </div>
+  
+      <div class="completion">
+  
+        <span>
+          Profile Completion
+        </span>
+  
+        <strong>
+          {{ candidate.profileCompletion }}%
+        </strong>
+  
+      </div>
+  
+    </div>
+  
+  
+    <!-- About -->
+  
+    <section class="profile-section">
+  
+      <h3>
+        About Me
+      </h3>
+  
+      <p>
+        {{ candidate.summary }}
+      </p>
+  
+    </section>
+  
+  
+    <!-- Contact -->
+  
+    <section class="profile-section">
+  
+      <h3>
+        Contact Information
+      </h3>
+  
+      <div class="contact-grid">
+  
+        <div>
+          <span>Email</span>
+          <strong>{{ candidate.email }}</strong>
+        </div>
+  
+        <div>
+          <span>Phone</span>
+          <strong>{{ candidate.phone }}</strong>
+        </div>
+  
+        <div>
+          <span>Location</span>
+          <strong>{{ candidate.location }}</strong>
+        </div>
+  
+      </div>
+  
+    </section>
+  
+  
+    <!-- Skills -->
+  
+    <section class="profile-section">
+  
+      <h3>
+        Skills
+      </h3>
+  
+      <div class="skills">
+  
+        @for (skill of candidate.skills; track skill) {
+  
+          <span class="skill">
+            {{ skill }}
+          </span>
+  
+        }
+  
+      </div>
+  
+    </section>
+  
+  
+    <!-- Education -->
+  
+    <section class="profile-section">
+  
+      <h3>
+        Education
+      </h3>
+  
+      @for (education of candidate.education; track education.degree) {
+  
+        <div class="education-item">
+  
+          <div class="education-icon">
+            🎓
+          </div>
+  
+          <div>
+  
+            <h4>
+              {{ education.degree }}
+            </h4>
+  
+            <p>
+              {{ education.institution }}
+            </p>
+  
+            <span>
+              {{ education.year }}
+            </span>
+  
+          </div>
+  
+        </div>
+  
+      }
+  
+    </section>
+  
+  
+    <!-- Experience -->
+  
+    <section class="profile-section">
+  
+      <h3>
+        Experience
+      </h3>
+  
+      @for (experience of candidate.experience; track experience.position) {
+  
+        <div class="experience-item">
+  
+          <div class="experience-header">
+  
+            <div>
+  
+              <h4>
+                {{ experience.position }}
+              </h4>
+  
+              <p>
+                {{ experience.company }}
+              </p>
+  
+            </div>
+  
+            <span>
+              {{ experience.period }}
+            </span>
+  
+          </div>
+  
+          <p class="experience-description">
+            {{ experience.description }}
+          </p>
+  
+        </div>
+  
+      }
+  
+    </section>
+  
+  
+    <!-- Portfolio & Resume -->
+  
+    <section class="profile-section">
+  
+      <h3>
+        Professional Links
+      </h3>
+  
+      <div class="professional-links">
+  
+        <a
+          [href]="candidate.portfolio"
+          target="_blank"
+          class="profile-link">
+  
+          🌐 Portfolio
+  
+        </a>
+  
+        <a
+          [href]="candidate.github"
+          target="_blank"
+          class="profile-link">
+  
+          💻 GitHub
+  
+        </a>
+  
+        <button class="resume-button">
+  
+          📄 View Resume
+  
+        </button>
+  
+      </div>
+  
+    </section>
+  
+  </div>

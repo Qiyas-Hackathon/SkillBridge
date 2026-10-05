@@ -1,0 +1,18 @@
+.badge {
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  text-transform: capitalize;
+  background: #e5e7eb;
+
+  &.pending { background: #fef3c7; }
+  &.reviewed { background: #dbeafe; }
+  &.shortlisted { background: #ede9fe; }
+  &.rejected { background: #fee2e2; }
+  &.hired { background: #dcfce7; }
+}
+
+select {
+  padding: 4px 8px;
+  text-transform: capitalize;
+}

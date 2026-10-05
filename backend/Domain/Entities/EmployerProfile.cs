@@ -12,6 +12,7 @@ public class EmployerProfile
 
     public string? LogoPath { get; set; }
 
+    public bool IsDeleted { get; set; } = false;
     public ICollection<Job> Jobs { get; set; }
         = new List<Job>();
 }
