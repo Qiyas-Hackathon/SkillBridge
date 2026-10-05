@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\API\\SkillBridge.Api.csproj": {}
+    "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\API\\SkillBridge.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\API\\SkillBridge.Api.csproj": {
+    "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\API\\SkillBridge.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\API\\SkillBridge.Api.csproj",
+        "projectUniqueName": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\API\\SkillBridge.Api.csproj",
         "projectName": "SkillBridge.Api",
-        "projectPath": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\API\\SkillBridge.Api.csproj",
-        "packagesPath": "C:\\Users\\sclab\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\API\\obj\\",
+        "projectPath": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\API\\SkillBridge.Api.csproj",
+        "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\API\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\sclab\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -27,11 +33,11 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Application\\SkillBridge.Application.csproj": {
-                "projectPath": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Application\\SkillBridge.Application.csproj"
+              "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Application\\SkillBridge.Application.csproj": {
+                "projectPath": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Application\\SkillBridge.Application.csproj"
               },
-              "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Infrastructure\\SkillBridge.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Infrastructure\\SkillBridge.Infrastructure.csproj"
+              "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Infrastructure\\SkillBridge.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Infrastructure\\SkillBridge.Infrastructure.csproj"
               }
             }
           }
@@ -46,13 +52,17 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.400"
       },
       "frameworks": {
         "net10.0": {
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[14.2.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[10.0.12, )"
@@ -83,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
@@ -501,22 +511,28 @@
         }
       }
     },
-    "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Application\\SkillBridge.Application.csproj": {
+    "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Application\\SkillBridge.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Application\\SkillBridge.Application.csproj",
+        "projectUniqueName": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Application\\SkillBridge.Application.csproj",
         "projectName": "SkillBridge.Application",
-        "projectPath": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Application\\SkillBridge.Application.csproj",
-        "packagesPath": "C:\\Users\\sclab\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Application\\obj\\",
+        "projectPath": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Application\\SkillBridge.Application.csproj",
+        "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Application\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\sclab\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -524,8 +540,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Domain\\SkillBridge.Domain.csproj": {
-                "projectPath": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Domain\\SkillBridge.Domain.csproj"
+              "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Domain\\SkillBridge.Domain.csproj": {
+                "projectPath": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Domain\\SkillBridge.Domain.csproj"
               }
             }
           }
@@ -540,12 +556,18 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.400"
       },
       "frameworks": {
         "net10.0": {
           "framework": "net10.0",
           "targetAlias": "net10.0",
+          "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[14.2.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -562,7 +584,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -840,22 +862,28 @@
         }
       }
     },
-    "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Domain\\SkillBridge.Domain.csproj": {
+    "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Domain\\SkillBridge.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Domain\\SkillBridge.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Domain\\SkillBridge.Domain.csproj",
         "projectName": "SkillBridge.Domain",
-        "projectPath": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Domain\\SkillBridge.Domain.csproj",
-        "packagesPath": "C:\\Users\\sclab\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Domain\\SkillBridge.Domain.csproj",
+        "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\sclab\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -875,7 +903,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.400"
       },
       "frameworks": {
         "net10.0": {
@@ -897,7 +925,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1175,22 +1203,28 @@
         }
       }
     },
-    "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Infrastructure\\SkillBridge.Infrastructure.csproj": {
+    "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Infrastructure\\SkillBridge.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Infrastructure\\SkillBridge.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Infrastructure\\SkillBridge.Infrastructure.csproj",
         "projectName": "SkillBridge.Infrastructure",
-        "projectPath": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Infrastructure\\SkillBridge.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\sclab\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Infrastructure\\SkillBridge.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\sclab\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -1198,11 +1232,11 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Application\\SkillBridge.Application.csproj": {
-                "projectPath": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Application\\SkillBridge.Application.csproj"
+              "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Application\\SkillBridge.Application.csproj": {
+                "projectPath": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Application\\SkillBridge.Application.csproj"
               },
-              "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Domain\\SkillBridge.Domain.csproj": {
-                "projectPath": "C:\\Users\\sclab\\Desktop\\kalu\\SkillBridge\\backend\\Domain\\SkillBridge.Domain.csproj"
+              "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Domain\\SkillBridge.Domain.csproj": {
+                "projectPath": "C:\\Users\\hp\\Desktop\\Hackathon\\skillbridge\\backend\\Domain\\SkillBridge.Domain.csproj"
               }
             }
           }
@@ -1217,7 +1251,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.400"
       },
       "frameworks": {
         "net10.0": {
@@ -1259,7 +1293,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

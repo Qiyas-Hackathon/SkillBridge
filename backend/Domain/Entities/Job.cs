@@ -13,6 +13,7 @@ public class Job
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public EmployerProfile EmployerProfile { get; set; } = null!;
+    public bool IsDeleted { get; set; } = false;
 
     public ICollection<JobRequiredSkill> RequiredSkills { get; set; }
         = new List<JobRequiredSkill>();
