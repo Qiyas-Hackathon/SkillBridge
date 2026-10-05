@@ -4,8 +4,8 @@ using SkillBridge.Application.Interfaces;
 
 namespace SkillBridge.Infrastructure.Identity;
 
-/// <summary>Reads the caller's identity from the validated JWT claims.</summary>
-public sealed class CurrentUserService(IHttpContextAccessor accessor) : ICurrentUserService
+
+public sealed class CurrentUserService( IHttpContextAccessor accessor) : ICurrentUserService
 {
     private ClaimsPrincipal? Principal => accessor.HttpContext?.User;
 
