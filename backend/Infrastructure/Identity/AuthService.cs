@@ -15,8 +15,7 @@ public sealed class AuthService(UserManager<ApplicationUser> userManager, SkillB
     {
         var roleName = command.Role.ToString();
 
-        // One transaction around the account, its role and its profile: if anything
-        // below throws, the transaction is disposed without Commit and everything rolls back.
+     
         await using var transaction = await db.Database.BeginTransactionAsync(ct);
 
         var user = new ApplicationUser
@@ -36,7 +35,7 @@ public sealed class AuthService(UserManager<ApplicationUser> userManager, SkillB
                 $"Could not assign role '{roleName}': " +
                 string.Join("; ", roleResult.Errors.Select(e => e.Description)));
 
-        // user.Id is populated now that the user row has been inserted.
+       
         switch (command.Role)
         {
             case UserRole.Candidate when command.Candidate is { } c:
@@ -47,7 +46,7 @@ public sealed class AuthService(UserManager<ApplicationUser> userManager, SkillB
                     Headline = NullIfBlank(c.Headline),
                     Institution = c.Institution.Trim(),
                     FieldOfStudy = c.FieldOfStudy.Trim(),
-                    DegreeLevel = c.DegreeLevel.Trim(),
+                    EducationLevel = c.DegreeLevel.Trim(),
                     GraduationYear = c.GraduationYear,
                     GitHubUrl = NullIfBlank(c.GitHubUrl),
                     PortfolioUrl = NullIfBlank(c.PortfolioUrl)
@@ -59,13 +58,13 @@ public sealed class AuthService(UserManager<ApplicationUser> userManager, SkillB
                 {
                     UserId = user.Id,
                     CompanyName = e.CompanyName.Trim(),
-                    ContactName = e.ContactName.Trim(),
-                    Website = NullIfBlank(e.Website)
+                   
+                  
                 });
                 break;
 
             default:
-                // The validator prevents this; guard anyway so we never save an account without a profile.
+                
                 throw new InvalidOperationException($"Profile details missing for role '{roleName}'.");
         }
 
@@ -119,8 +118,7 @@ public sealed class AuthService(UserManager<ApplicationUser> userManager, SkillB
         if (result.Errors.Any(e => e.Code is "DuplicateUserName" or "DuplicateEmail"))
             return new ConflictException("An account with this email already exists.");
 
-        // Identity error codes look like "PasswordTooShort", "InvalidEmail", ...
-        var errors = result.Errors
+           var errors = result.Errors
             .GroupBy(e => e.Code.StartsWith("Password", StringComparison.Ordinal) ? "Password" : "Email")
             .ToDictionary(g => g.Key, g => g.Select(e => e.Description).ToArray());
 

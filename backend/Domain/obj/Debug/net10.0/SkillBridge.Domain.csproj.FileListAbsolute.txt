@@ -10,3 +10,15 @@ C:\Users\hp\Desktop\Hackathon\skillbridge\backend\Domain\obj\Debug\net10.0\Skill
 C:\Users\hp\Desktop\Hackathon\skillbridge\backend\Domain\obj\Debug\net10.0\refint\SkillBridge.Domain.dll
 C:\Users\hp\Desktop\Hackathon\skillbridge\backend\Domain\obj\Debug\net10.0\SkillBridge.Domain.pdb
 C:\Users\hp\Desktop\Hackathon\skillbridge\backend\Domain\obj\Debug\net10.0\ref\SkillBridge.Domain.dll
+C:\Users\sclab\Desktop\kalu\SkillBridge\backend\Domain\bin\Debug\net10.0\SkillBridge.Domain.deps.json
+C:\Users\sclab\Desktop\kalu\SkillBridge\backend\Domain\bin\Debug\net10.0\SkillBridge.Domain.dll
+C:\Users\sclab\Desktop\kalu\SkillBridge\backend\Domain\bin\Debug\net10.0\SkillBridge.Domain.pdb
+C:\Users\sclab\Desktop\kalu\SkillBridge\backend\Domain\obj\Debug\net10.0\SkillBridge.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sclab\Desktop\kalu\SkillBridge\backend\Domain\obj\Debug\net10.0\SkillBridge.Domain.AssemblyInfoInputs.cache
+C:\Users\sclab\Desktop\kalu\SkillBridge\backend\Domain\obj\Debug\net10.0\SkillBridge.Domain.AssemblyInfo.cs
+C:\Users\sclab\Desktop\kalu\SkillBridge\backend\Domain\obj\Debug\net10.0\SkillBridge.Domain.csproj.CoreCompileInputs.cache
+C:\Users\sclab\Desktop\kalu\SkillBridge\backend\Domain\obj\Debug\net10.0\SkillBridge.Domain.sourcelink.json
+C:\Users\sclab\Desktop\kalu\SkillBridge\backend\Domain\obj\Debug\net10.0\SkillBridge.Domain.dll
+C:\Users\sclab\Desktop\kalu\SkillBridge\backend\Domain\obj\Debug\net10.0\refint\SkillBridge.Domain.dll
+C:\Users\sclab\Desktop\kalu\SkillBridge\backend\Domain\obj\Debug\net10.0\SkillBridge.Domain.pdb
+C:\Users\sclab\Desktop\kalu\SkillBridge\backend\Domain\obj\Debug\net10.0\ref\SkillBridge.Domain.dll

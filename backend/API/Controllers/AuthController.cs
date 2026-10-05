@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SkillBridge.Api.DTOs.Auth;
+using SkillBridge.Application.DTOs.Auth;
 using SkillBridge.Application.Commands.Auth;
 using SkillBridge.Application.Queries.Auth;
 
@@ -35,7 +35,7 @@ public class AuthController(IMediator mediator) : ControllerBase
     [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<AuthResponse>> Login([FromBody] LoginRequest request, CancellationToken ct)
+    public async Task<ActionResult<AuthResponse>> Login(LoginRequest request, CancellationToken ct)
     {
         var result = await mediator.Send(new LoginCommand(request.Email, request.Password), ct);
         return Ok(AuthResponse.From(result));

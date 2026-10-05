@@ -1,6 +1,6 @@
 using SkillBridge.Application.DTOs.Auth;
 
-namespace SkillBridge.Api.DTOs.Auth;
+namespace SkillBridge.Application.DTOs.Auth;
 
 public sealed record UserResponse(int Id, string Email, string Role)
 {

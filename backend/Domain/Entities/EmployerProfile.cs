@@ -4,7 +4,7 @@ public class EmployerProfile
 {
     public int Id { get; set; }
 
-    public Guid UserId { get; set; }
+    public int UserId { get; set; }
 
     public string CompanyName { get; set; } = string.Empty;
 

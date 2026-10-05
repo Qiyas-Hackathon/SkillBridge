@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\SkillBridge.Domain.csproj" />
+    <PackageReference Include="MediatR" Version="14.2.0" />
   </ItemGroup>
 
   <PropertyGroup>
