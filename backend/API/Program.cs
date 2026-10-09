@@ -10,6 +10,7 @@ using SkillBridge.Infrastructure.Context;
 using SkillBridge.Infrastructure.Identity;
 using SkillBridge.Infrastructure.Repositories;
 using SkillBridge.Infrastructure.Services;
+using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,7 +46,30 @@ builder.Services
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer((document, context, cancellationToken) =>
+    {
+        document.Components ??= new OpenApiComponents();
+        document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
+        document.Components.SecuritySchemes["Bearer"] = new OpenApiSecurityScheme
+        {
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT"
+        };
+
+        document.Security =
+        [
+            new OpenApiSecurityRequirement
+            {
+                [new OpenApiSecuritySchemeReference("Bearer", document)] = []
+            }
+        ];
+
+        return Task.CompletedTask;
+    });
+});
 
 var app = builder.Build();
 
@@ -54,7 +78,7 @@ app.UseExceptionHandler();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference();   // UI at /scalar/v1
+    app.MapScalarApiReference();   
 
     // Development convenience: apply pending migrations on startup.
     using var migrationScope = app.Services.CreateScope();
@@ -62,7 +86,7 @@ if (app.Environment.IsDevelopment())
     await db.Database.MigrateAsync();
 }
 
-// Registration assigns a role by name, so the roles must exist.
+// Registration assigns a role by name
 using (var seedScope = app.Services.CreateScope())
 {
     await IdentitySeeder.SeedRolesAsync(seedScope.ServiceProvider);
