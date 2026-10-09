@@ -15,7 +15,15 @@ public sealed class AuthService(UserManager<ApplicationUser> userManager, SkillB
     {
         var roleName = command.Role.ToString();
 
-     
+        // Fail fast on missing profile data BEFORE any user row is created.
+        if (command.Role == UserRole.Candidate && command.Candidate is null ||
+            command.Role == UserRole.Employer && command.Employer is null ||
+            !Enum.IsDefined(command.Role))
+        {
+            throw new InvalidOperationException($"Profile details missing for role '{roleName}'.");
+        }
+
+        // The user, role assignment and profile must all succeed or all roll back.
         await using var transaction = await db.Database.BeginTransactionAsync(ct);
 
         var user = new ApplicationUser
@@ -35,37 +43,32 @@ public sealed class AuthService(UserManager<ApplicationUser> userManager, SkillB
                 $"Could not assign role '{roleName}': " +
                 string.Join("; ", roleResult.Errors.Select(e => e.Description)));
 
-       
         switch (command.Role)
         {
-            case UserRole.Candidate when command.Candidate is { } c:
+            case UserRole.Candidate:
+                var cand = command.Candidate!;
                 db.CandidateProfiles.Add(new CandidateProfile
                 {
                     UserId = user.Id,
-                    FullName = c.FullName.Trim(),
-                    Headline = NullIfBlank(c.Headline),
-                    Institution = c.Institution.Trim(),
-                    FieldOfStudy = c.FieldOfStudy.Trim(),
-                    EducationLevel = c.DegreeLevel.Trim(),
-                    GraduationYear = c.GraduationYear,
-                    GitHubUrl = NullIfBlank(c.GitHubUrl),
-                    PortfolioUrl = NullIfBlank(c.PortfolioUrl)
+                    FullName = cand.FullName.Trim(),
+                    Headline = NullIfBlank(cand.Headline),
+                    Institution = cand.Institution.Trim(),
+                    FieldOfStudy = cand.FieldOfStudy.Trim(),
+                    DegreeLevel = cand.DegreeLevel.Trim(),
+                    GraduationYear = cand.GraduationYear,
+                    GitHubUrl = NullIfBlank(cand.GitHubUrl),
+                    PortfolioUrl = NullIfBlank(cand.PortfolioUrl)
                 });
                 break;
 
-            case UserRole.Employer when command.Employer is { } e:
+            case UserRole.Employer:
+                var emp = command.Employer!;
                 db.EmployerProfiles.Add(new EmployerProfile
                 {
                     UserId = user.Id,
-                    CompanyName = e.CompanyName.Trim(),
-                   
-                  
+                    CompanyName = emp.CompanyName.Trim()
                 });
                 break;
-
-            default:
-                
-                throw new InvalidOperationException($"Profile details missing for role '{roleName}'.");
         }
 
         await db.SaveChangesAsync(ct);
@@ -118,7 +121,7 @@ public sealed class AuthService(UserManager<ApplicationUser> userManager, SkillB
         if (result.Errors.Any(e => e.Code is "DuplicateUserName" or "DuplicateEmail"))
             return new ConflictException("An account with this email already exists.");
 
-           var errors = result.Errors
+        var errors = result.Errors
             .GroupBy(e => e.Code.StartsWith("Password", StringComparison.Ordinal) ? "Password" : "Email")
             .ToDictionary(g => g.Key, g => g.Select(e => e.Description).ToArray());
 

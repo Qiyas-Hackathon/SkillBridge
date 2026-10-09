@@ -37,13 +37,23 @@ public class SkillBridgeDbContext(
         builder.ApplyConfigurationsFromAssembly(
             typeof(SkillBridgeDbContext).Assembly);
 
+        // Soft-delete filters.
         builder.Entity<CandidateProfile>()
-.HasQueryFilter(x => !x.IsDeleted);
+            .HasQueryFilter(x => !x.IsDeleted);
 
         builder.Entity<EmployerProfile>()
             .HasQueryFilter(x => !x.IsDeleted);
 
+        // A job is hidden when it, or the employer that owns it, is deleted.
         builder.Entity<Job>()
-            .HasQueryFilter(x => !x.IsDeleted);
+            .HasQueryFilter(x => !x.IsDeleted && !x.EmployerProfile.IsDeleted);
+
+        // Matching filters on the join entities so EF does not warn about
+        // required navigations pointing at filtered principals.
+        builder.Entity<CandidateSkill>()
+            .HasQueryFilter(x => !x.CandidateProfile.IsDeleted);
+
+        builder.Entity<JobRequiredSkill>()
+            .HasQueryFilter(x => !x.Job.IsDeleted && !x.Job.EmployerProfile.IsDeleted);
     }
 }

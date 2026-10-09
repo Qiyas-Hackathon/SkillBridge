@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using SkillBridge.Application.Exceptions;
 using SkillBridge.Application.Interfaces;
 using SkillBridge.Domain.Entities;
 using SkillBridge.Infrastructure.Context;
 
-namespace SkillBridge.Application.Services;
+namespace SkillBridge.Infrastructure.Services;
 
 public class CandidateProfileService : ICandidateProfileService
 {
@@ -39,27 +40,37 @@ public class CandidateProfileService : ICandidateProfileService
         string? portfolioUrl,
         CancellationToken cancellationToken = default)
     {
+        // IgnoreQueryFilters: a soft-deleted profile still occupies the unique UserId index,
+        // so inserting a second row would fail. Revive the old row instead.
         var existing = await _db.CandidateProfiles
+            .IgnoreQueryFilters()
+            .Include(x => x.CandidateSkills)
+                .ThenInclude(x => x.Skill)
             .FirstOrDefaultAsync(
                 x => x.UserId == userId,
                 cancellationToken);
 
-        if (existing is not null)
-            throw new InvalidOperationException(
-                "Candidate profile already exists.");
+        if (existing is not null && !existing.IsDeleted)
+            throw new ConflictException("Candidate profile already exists.");
 
-        var profile = new CandidateProfile
+        if (existing is not null)
         {
-            UserId = userId,
-            FullName = fullName.Trim(),
-            Institution = institution.Trim(),
-            Headline = headline?.Trim(),
-            FieldOfStudy = fieldOfStudy?.Trim(),
-            DegreeLevel = degreeLevel?.Trim(),
-            GraduationYear = graduationYear,
-            GitHubUrl = githubUrl?.Trim(),
-            PortfolioUrl = portfolioUrl?.Trim()
-        };
+            _db.CandidateSkills.RemoveRange(existing.CandidateSkills);
+            existing.CandidateSkills.Clear();
+
+            Apply(existing, fullName, institution, headline, fieldOfStudy,
+                degreeLevel, graduationYear, githubUrl, portfolioUrl);
+            existing.IsDeleted = false;
+
+            await _db.SaveChangesAsync(cancellationToken);
+
+            return existing;
+        }
+
+        var profile = new CandidateProfile { UserId = userId };
+
+        Apply(profile, fullName, institution, headline, fieldOfStudy,
+            degreeLevel, graduationYear, githubUrl, portfolioUrl);
 
         _db.CandidateProfiles.Add(profile);
 
@@ -80,23 +91,20 @@ public class CandidateProfileService : ICandidateProfileService
         string? portfolioUrl,
         CancellationToken cancellationToken = default)
     {
+        // Skills must be loaded: the handler maps profile.CandidateSkills into the response,
+        // and without the Include the response always showed an empty skill list.
         var profile = await _db.CandidateProfiles
+            .Include(x => x.CandidateSkills)
+                .ThenInclude(x => x.Skill)
             .FirstOrDefaultAsync(
                 x => x.UserId == userId,
                 cancellationToken);
 
         if (profile is null)
-            throw new KeyNotFoundException(
-                "Candidate profile not found.");
+            throw new NotFoundException("Candidate profile not found.");
 
-        profile.FullName = fullName.Trim();
-        profile.Institution = institution.Trim();
-        profile.Headline = headline?.Trim();
-        profile.FieldOfStudy = fieldOfStudy?.Trim();
-        profile.DegreeLevel = degreeLevel?.Trim();
-        profile.GraduationYear = graduationYear;
-        profile.GitHubUrl = githubUrl?.Trim();
-        profile.PortfolioUrl = portfolioUrl?.Trim();
+        Apply(profile, fullName, institution, headline, fieldOfStudy,
+            degreeLevel, graduationYear, githubUrl, portfolioUrl);
 
         await _db.SaveChangesAsync(cancellationToken);
 
@@ -114,14 +122,13 @@ public class CandidateProfileService : ICandidateProfileService
                 cancellationToken);
 
         if (profile is null)
-            throw new KeyNotFoundException(
-                "Candidate profile not found.");
+            throw new NotFoundException("Candidate profile not found.");
 
         var skillExists = await _db.Skills
             .AnyAsync(x => x.Id == skillId, cancellationToken);
 
         if (!skillExists)
-            throw new KeyNotFoundException("Skill not found.");
+            throw new NotFoundException("Skill not found.");
 
         var alreadyAdded = await _db.CandidateSkills
             .AnyAsync(
@@ -130,8 +137,7 @@ public class CandidateProfileService : ICandidateProfileService
                 cancellationToken);
 
         if (alreadyAdded)
-            throw new InvalidOperationException(
-                "Skill already added to profile.");
+            throw new ConflictException("Skill already added to profile.");
 
         _db.CandidateSkills.Add(new CandidateSkill
         {
@@ -153,8 +159,7 @@ public class CandidateProfileService : ICandidateProfileService
                 cancellationToken);
 
         if (profile is null)
-            throw new KeyNotFoundException(
-                "Candidate profile not found.");
+            throw new NotFoundException("Candidate profile not found.");
 
         var candidateSkill = await _db.CandidateSkills
             .FirstOrDefaultAsync(
@@ -163,8 +168,7 @@ public class CandidateProfileService : ICandidateProfileService
                 cancellationToken);
 
         if (candidateSkill is null)
-            throw new KeyNotFoundException(
-                "Skill is not attached to this profile.");
+            throw new NotFoundException("Skill is not attached to this profile.");
 
         _db.CandidateSkills.Remove(candidateSkill);
 
@@ -181,11 +185,34 @@ public class CandidateProfileService : ICandidateProfileService
                 cancellationToken);
 
         if (profile is null)
-            throw new KeyNotFoundException(
-                "Candidate profile not found.");
+            throw new NotFoundException("Candidate profile not found.");
 
         profile.IsDeleted = true;
 
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+    private static void Apply(
+        CandidateProfile profile,
+        string fullName,
+        string institution,
+        string? headline,
+        string? fieldOfStudy,
+        string? degreeLevel,
+        int? graduationYear,
+        string? githubUrl,
+        string? portfolioUrl)
+    {
+        profile.FullName = fullName.Trim();
+        profile.Institution = institution.Trim();
+        profile.Headline = NullIfBlank(headline);
+        profile.FieldOfStudy = NullIfBlank(fieldOfStudy);
+        profile.DegreeLevel = NullIfBlank(degreeLevel);
+        profile.GraduationYear = graduationYear;
+        profile.GitHubUrl = NullIfBlank(githubUrl);
+        profile.PortfolioUrl = NullIfBlank(portfolioUrl);
+    }
+
+    private static string? NullIfBlank(string? value) =>
+        string.IsNullOrWhiteSpace(value) ? null : value.Trim();
 }

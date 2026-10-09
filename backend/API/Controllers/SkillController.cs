@@ -30,8 +30,8 @@ public class SkillController : ControllerBase
         return Ok(result);
     }
 
-    // Temporary/simple endpoint for creating skills.
-    // We can restrict this to Admin after teammate's auth is finalized.
+    // Any signed-in user can create a skill for now.
+    // Restrict this to an Admin role once one exists.
     [Authorize]
     [HttpPost]
     public async Task<IActionResult> Create(
@@ -42,6 +42,6 @@ public class SkillController : ControllerBase
             new CreateSkillCommand(request.Name),
             cancellationToken);
 
-        return Ok(result);
+        return StatusCode(StatusCodes.Status201Created, result);
     }
 }

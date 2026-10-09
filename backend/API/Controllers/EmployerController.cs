@@ -3,36 +3,36 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SkillBridge.Application.Commands.Employer;
 using SkillBridge.Application.DTOs.Employer;
+using SkillBridge.Application.Exceptions;
+using SkillBridge.Application.Interfaces;
 using SkillBridge.Application.Queries.Employer;
+using SkillBridge.Domain.Constants;
 
 namespace SkillBridge.Api.Controllers;
 
 [ApiController]
 [Route("api/employers")]
-[Authorize(Roles = "Employer")]
+[Authorize(Roles = RoleNames.Employer)]
 public class EmployerController : ControllerBase
 {
     private readonly ISender _sender;
+    private readonly ICurrentUserService _currentUser;
 
-    public EmployerController(ISender sender)
+    public EmployerController(ISender sender, ICurrentUserService currentUser)
     {
         _sender = sender;
+        _currentUser = currentUser;
     }
 
-    private int GetUserId()
-    {
-        return int.Parse(
-            User.FindFirst("sub")?.Value
-            ?? User.FindFirst("userId")?.Value
-            ?? throw new UnauthorizedAccessException());
-    }
+    private int UserId =>
+        _currentUser.UserId ?? throw new AuthenticationFailedException("You are not signed in.");
 
     [HttpGet("me")]
     public async Task<IActionResult> GetMe(
         CancellationToken cancellationToken)
     {
         var result = await _sender.Send(
-            new GetMyEmployerProfileQuery(GetUserId()),
+            new GetMyEmployerProfileQuery(UserId),
             cancellationToken);
 
         return result is null
@@ -47,7 +47,7 @@ public class EmployerController : ControllerBase
     {
         var result = await _sender.Send(
             new CreateEmployerProfileCommand(
-                GetUserId(),
+                UserId,
                 request.CompanyName,
                 request.Description),
             cancellationToken);
@@ -65,7 +65,7 @@ public class EmployerController : ControllerBase
     {
         var result = await _sender.Send(
             new UpdateEmployerProfileCommand(
-                GetUserId(),
+                UserId,
                 request.CompanyName,
                 request.Description),
             cancellationToken);
@@ -78,7 +78,7 @@ public class EmployerController : ControllerBase
         CancellationToken cancellationToken)
     {
         await _sender.Send(
-            new DeleteEmployerProfileCommand(GetUserId()),
+            new DeleteEmployerProfileCommand(UserId),
             cancellationToken);
 
         return NoContent();

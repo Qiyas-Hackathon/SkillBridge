@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using SkillBridge.Application.Exceptions;
 using SkillBridge.Application.Interfaces;
 using SkillBridge.Domain.Entities;
 using SkillBridge.Infrastructure.Context;
 
-namespace SkillBridge.Application.Services;
+namespace SkillBridge.Infrastructure.Services;
 
 public class SkillService : ISkillService
 {
@@ -28,17 +29,15 @@ public class SkillService : ISkillService
         CancellationToken cancellationToken = default)
     {
         var normalizedName = name.Trim();
+        var lowered = normalizedName.ToLower();
 
         var exists = await _dbContext.Skills
             .AnyAsync(
-                x => x.Name.ToLower() == normalizedName.ToLower(),
+                x => x.Name.ToLower() == lowered,
                 cancellationToken);
 
         if (exists)
-        {
-            throw new InvalidOperationException(
-                $"Skill '{normalizedName}' already exists.");
-        }
+            throw new ConflictException($"Skill '{normalizedName}' already exists.");
 
         var skill = new Skill
         {

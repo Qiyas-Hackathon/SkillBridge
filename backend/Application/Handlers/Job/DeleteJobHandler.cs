@@ -3,7 +3,7 @@ using SkillBridge.Application.Commands.Job;
 using SkillBridge.Application.Interfaces;
 
 namespace SkillBridge.Application.Handlers.Job;
-using Job= SkillBridge.Domain.Entities.Job;
+
 public class DeleteJobHandler
     : IRequestHandler<DeleteJobCommand, Unit>
 {

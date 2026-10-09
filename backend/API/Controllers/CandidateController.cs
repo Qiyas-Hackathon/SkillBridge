@@ -3,37 +3,36 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SkillBridge.Application.Commands.Candidate;
 using SkillBridge.Application.DTOs.Candidate;
+using SkillBridge.Application.Exceptions;
+using SkillBridge.Application.Interfaces;
 using SkillBridge.Application.Queries.Candidate;
+using SkillBridge.Domain.Constants;
 
 namespace SkillBridge.Api.Controllers;
 
 [ApiController]
 [Route("api/candidates")]
-[Authorize(Roles = "Candidate")]
+[Authorize(Roles = RoleNames.Candidate)]
 public class CandidateController : ControllerBase
 {
     private readonly ISender _sender;
+    private readonly ICurrentUserService _currentUser;
 
-    public CandidateController(ISender sender)
+    public CandidateController(ISender sender, ICurrentUserService currentUser)
     {
         _sender = sender;
+        _currentUser = currentUser;
     }
 
-    // TEMPORARY: replace with your teammate's ICurrentUserService once we wire it.
-    private int GetUserId()
-    {
-        return int.Parse(
-            User.FindFirst("sub")?.Value
-            ?? User.FindFirst("userId")?.Value
-            ?? throw new UnauthorizedAccessException());
-    }
+    private int UserId =>
+        _currentUser.UserId ?? throw new AuthenticationFailedException("You are not signed in.");
 
     [HttpGet("me")]
     public async Task<IActionResult> GetMe(
         CancellationToken cancellationToken)
     {
         var result = await _sender.Send(
-            new GetMyCandidateProfileQuery(GetUserId()),
+            new GetMyCandidateProfileQuery(UserId),
             cancellationToken);
 
         return result is null
@@ -48,7 +47,7 @@ public class CandidateController : ControllerBase
     {
         var result = await _sender.Send(
             new CreateCandidateProfileCommand(
-                GetUserId(),
+                UserId,
                 request.FullName,
                 request.Institution,
                 request.Headline,
@@ -61,6 +60,7 @@ public class CandidateController : ControllerBase
 
         return CreatedAtAction(
             nameof(GetMe),
+            null,
             result);
     }
 
@@ -71,7 +71,7 @@ public class CandidateController : ControllerBase
     {
         var result = await _sender.Send(
             new UpdateCandidateProfileCommand(
-                GetUserId(),
+                UserId,
                 request.FullName,
                 request.Institution,
                 request.Headline,
@@ -91,7 +91,7 @@ public class CandidateController : ControllerBase
         CancellationToken cancellationToken)
     {
         await _sender.Send(
-            new AddCandidateSkillCommand(GetUserId(), skillId),
+            new AddCandidateSkillCommand(UserId, skillId),
             cancellationToken);
 
         return NoContent();
@@ -103,7 +103,7 @@ public class CandidateController : ControllerBase
         CancellationToken cancellationToken)
     {
         await _sender.Send(
-            new RemoveCandidateSkillCommand(GetUserId(), skillId),
+            new RemoveCandidateSkillCommand(UserId, skillId),
             cancellationToken);
 
         return NoContent();
@@ -114,7 +114,7 @@ public class CandidateController : ControllerBase
         CancellationToken cancellationToken)
     {
         await _sender.Send(
-            new DeleteCandidateProfileCommand(GetUserId()),
+            new DeleteCandidateProfileCommand(UserId),
             cancellationToken);
 
         return NoContent();

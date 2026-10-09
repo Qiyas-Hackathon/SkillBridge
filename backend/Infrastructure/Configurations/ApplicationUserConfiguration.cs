@@ -10,16 +10,10 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
     {
         builder.ToTable("Users");
 
-        builder.Property(x => x.FirstName)
-            .IsRequired()
-            .HasMaxLength(100);
+        builder.Property(x => x.CreatedAt)
+            .IsRequired();
 
-        builder.Property(x => x.LastName)
-            .IsRequired()
-            .HasMaxLength(100);
-
-        builder.Property(x => x.UserType)
-            .IsRequired()
-            .HasMaxLength(50);
+        builder.Property(x => x.ProfilePicturePath)
+            .HasMaxLength(500);
     }
 }

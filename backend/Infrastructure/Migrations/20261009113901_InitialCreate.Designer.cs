@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SkillBridge.Infrastructure.Context;
@@ -11,9 +12,11 @@ using SkillBridge.Infrastructure.Context;
 namespace SkillBridge.Infrastructure.Migrations
 {
     [DbContext(typeof(SkillBridgeDbContext))]
-    partial class SkillBridgeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20261009113901_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
