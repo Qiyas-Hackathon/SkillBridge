@@ -1,21 +1,33 @@
-<h1>Company dashboard</h1>
+<h1>Company dashboard@if (companyName()) { - {{ companyName() }} }</h1>
 
-@if (stats$ | async; as stats) {
+@if (error()) {
+  <p class="form-error">{{ error() }}</p>
+}
+
+@if (loading()) {
+  <p class="loading-text">Loading...</p>
+} @else {
   <div class="stats">
-    <div class="stat"><span>{{ stats.activeJobs }}</span>Active jobs</div>
-    <div class="stat"><span>{{ stats.totalApplicants }}</span>Total applicants</div>
-    <div class="stat"><span>{{ stats.shortlisted }}</span>Shortlisted</div>
+    <div class="stat"><span>{{ myJobs().length }}</span>Posted jobs</div>
+    <div class="stat"><span>{{ skillCount() }}</span>Distinct skills requested</div>
   </div>
 
   <div class="links">
-    <a routerLink="/company/post-job">+ Post a job</a>
+    <a routerLink="/company/jobs/create">+ Post a job</a>
     <a routerLink="/company/jobs">Manage jobs</a>
   </div>
 
-  <h2>Recent applicants</h2>
-  <div class="grid">
-    @for (a of stats.recent; track a.id) {
-      <app-applicant-card [applicant]="a" />
-    }
-  </div>
+  <p class="notice-banner">
+    Applicant tracking is not available on the server yet, so applicant numbers are not shown.
+  </p>
+
+  <h2>Latest jobs</h2>
+  @for (job of myJobs().slice(0, 5); track job.id) {
+    <div class="card job-row">
+      <a [routerLink]="['/company/jobs', job.id, 'edit']"><strong>{{ job.title }}</strong></a>
+      <span>Posted {{ job.createdAt | date: 'mediumDate' }}</span>
+    </div>
+  } @empty {
+    <p class="empty">You haven't posted any jobs yet.</p>
+  }
 }

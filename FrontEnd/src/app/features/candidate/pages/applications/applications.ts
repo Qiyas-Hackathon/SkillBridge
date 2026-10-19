@@ -11,53 +11,18 @@ export class Applications {
 
   selectedStatus = 'All';
 
-  applications = [
-
-    {
-      id: 1,
-      jobTitle: 'Junior Angular Developer',
-      company: 'ABC Technology',
-      location: 'Addis Ababa',
-      jobType: 'Full-time',
-      appliedDate: 'October 1, 2026',
-      status: 'Pending',
-      match: 92
-    },
-
-    {
-      id: 2,
-      jobTitle: 'Junior Full Stack Developer',
-      company: 'Tech Solutions Ethiopia',
-      location: 'Addis Ababa',
-      jobType: 'Full-time',
-      appliedDate: 'September 28, 2026',
-      status: 'Shortlisted',
-      match: 87
-    },
-
-    {
-      id: 3,
-      jobTitle: 'Frontend Developer Intern',
-      company: 'Digital Solutions',
-      location: 'Remote',
-      jobType: 'Internship',
-      appliedDate: 'September 25, 2026',
-      status: 'Rejected',
-      match: 84
-    },
-
-    {
-      id: 4,
-      jobTitle: 'Software Developer',
-      company: 'Ethio Digital',
-      location: 'Addis Ababa',
-      jobType: 'Full-time',
-      appliedDate: 'September 20, 2026',
-      status: 'Pending',
-      match: 79
-    }
-
-  ];
+  // The API has no applications endpoint yet, so there is nothing to list.
+  // When it exists, load the candidate's applications here.
+  applications: {
+    id: number;
+    jobTitle: string;
+    company: string;
+    location: string;
+    jobType: string;
+    appliedDate: string;
+    status: string;
+    match: number;
+  }[] = [];
 
 
   get filteredApplications() {

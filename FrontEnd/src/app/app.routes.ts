@@ -1,185 +1,142 @@
-
-
 import { Routes } from '@angular/router';
+import { guestGuard, roleGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-
-  // =========================
-  // PUBLIC ROUTES
-  // =========================
-
+  // ========================= PUBLIC =========================
   {
     path: '',
-    loadComponent: () =>
-      import('./features/public/pages/home/home')
-        .then(m => m.Home)
+    pathMatch: 'full',
+    loadComponent: () => import('./features/public/pages/home/home').then(m => m.Home),
   },
-
   {
     path: 'login',
-    loadComponent: () =>
-      import('./features/public/pages/login/login')
-        .then(m => m.Login)
+    canActivate: [guestGuard],
+    loadComponent: () => import('./features/public/pages/login/login').then(m => m.Login),
   },
-
   {
     path: 'register',
-    loadComponent: () =>
-      import('./features/public/pages/register/register')
-        .then(m => m.Register)
+    canActivate: [guestGuard],
+    loadComponent: () => import('./features/public/pages/register/register').then(m => m.Register),
   },
 
-
-  // =========================
-  // CANDIDATE ROUTES
-  // =========================
-
+  // ========================= CANDIDATE =========================
   {
     path: 'candidate',
+    canActivate: [roleGuard('Candidate')],
+    loadComponent: () =>
+      import('./layouts/candidate-layout/candidate-layout').then(m => m.CandidateLayout),
     children: [
-
+      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
       {
         path: 'dashboard',
         loadComponent: () =>
-          import('./features/candidate/pages/dashboard/dashboard')
-            .then(m => m.Dashboard)
+          import('./features/candidate/pages/dashboard/dashboard').then(m => m.Dashboard),
       },
-
       {
         path: 'profile',
         loadComponent: () =>
-          import('./features/candidate/pages/profile/profile')
-            .then(m => m.Profile)
+          import('./features/candidate/pages/profile/profile').then(m => m.Profile),
       },
-
       {
         path: 'jobs',
         loadComponent: () =>
-          import('./features/candidate/pages/job-search/job-search')
-            .then(m => m.JobSearch)
+          import('./features/candidate/pages/job-search/job-search').then(m => m.JobSearch),
       },
-
       {
         path: 'jobs/:id',
         loadComponent: () =>
-          import('./features/candidate/pages/job-details/job-details')
-            .then(m => m.JobDetails)
+          import('./features/candidate/pages/job-details/job-details').then(m => m.JobDetails),
       },
-
       {
         path: 'jobs/:id/apply',
         loadComponent: () =>
-          import('./features/candidate/pages/apply/apply')
-            .then(m => m.Apply)
+          import('./features/candidate/pages/apply/apply').then(m => m.Apply),
       },
-
       {
         path: 'applications',
         loadComponent: () =>
-          import('./features/candidate/pages/applications/applications')
-            .then(m => m.Applications)
+          import('./features/candidate/pages/applications/applications').then(m => m.Applications),
       },
-
-      {
-        path: 'applications/:id',
-        loadComponent: () =>
-          import('./features/candidate/pages/application-details/application-details')
-            .then(m => m.ApplicationDetails)
-      }
-
-    ]
+    ],
   },
 
-
-  // =========================
-  // COMPANY ROUTES
-  // =========================
-
+  // ========================= COMPANY (Employer) =========================
   {
     path: 'company',
+    canActivate: [roleGuard('Employer')],
+    loadComponent: () =>
+      import('./layouts/company-layout/company-layout').then(m => m.CompanyLayout),
     children: [
-
+      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
       {
         path: 'dashboard',
         loadComponent: () =>
-          import('./features/company/pages/dashboard/dashboard')
-            .then(m => m.Dashboard)
+          import('./features/company/pages/dashboard/dashboard').then(m => m.Dashboard),
       },
-
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./features/company/pages/profile/profile').then(m => m.CompanyProfile),
+      },
       {
         path: 'jobs',
         loadComponent: () =>
-          import('./features/company/pages/manage-jobs/manage-jobs')
-            .then(m => m.ManageJobs)
+          import('./features/company/pages/manage-jobs/manage-jobs').then(m => m.ManageJobs),
       },
-
       {
         path: 'jobs/create',
         loadComponent: () =>
-          import('./features/company/pages/post-job/post-job')
-            .then(m => m.PostJob)
+          import('./features/company/pages/post-job/post-job').then(m => m.PostJob),
       },
-
       {
-        path: 'jobs/:id',
+        path: 'jobs/:id/edit',
         loadComponent: () =>
-          import('./features/candidate/pages/job-details/job-details')
-            .then(m => m.JobDetails)
+          import('./features/company/pages/post-job/post-job').then(m => m.PostJob),
       },
-
       {
-        path: 'jobs/:id/applicants',
+        path: 'jobs/:jobId/applicants',
         loadComponent: () =>
-          import('./features/company/pages/applicants/applicants')
-            .then(m => m.Applicants)
+          import('./features/company/pages/applicants/applicants').then(m => m.Applicants),
       },
-
       {
         path: 'applicants',
         loadComponent: () =>
-          import('./features/company/pages/applicants/applicants')
-            .then(m => m.Applicants)
+          import('./features/company/pages/applicants/applicants').then(m => m.Applicants),
       },
-
       {
         path: 'applicants/:id',
         loadComponent: () =>
-          import('./features/company/pages/applicant-details/applicant-details')
-            .then(m => m.ApplicantDetails)
+          import('./features/company/pages/applicant-details/applicant-details').then(
+            m => m.ApplicantDetails,
+          ),
       },
-
-      // {
-      //   path: 'shortlisted',
-      //   loadComponent: () =>
-      //     import('./features/company/pages/shortlisted/shortlisted')
-      //       .then(m => m.ShortlistedComponent)
-      // },
-
-      // {
-      //   path: 'profile',
-      //   loadComponent: () =>
-      //     import('./features/company/pages/profile/profile')
-      //       .then(m => m.Profile)
-      // }
-
-    ]
+    ],
   },
 
-
-  // =========================
-  // ADMIN ROUTES
-  // =========================
-
+  // ========================= ADMIN (UI only - no API yet) =========================
   {
     path: 'admin',
     children: [
-
       {
         path: 'dashboard',
         loadComponent: () =>
-          import('./features/admin/pages/dashboard/dashboard')
-            .then(m => m.Dashboard)
+          import('./features/admin/pages/dashboard/dashboard').then(m => m.Dashboard),
       },
-    ]
-    },
-]
+      {
+        path: 'users',
+        loadComponent: () => import('./features/admin/pages/users/users').then(m => m.Users),
+      },
+      {
+        path: 'users/:id',
+        loadComponent: () =>
+          import('./features/admin/pages/user-details/user-details').then(m => m.UserDetails),
+      },
+      {
+        path: 'companies',
+        loadComponent: () => import('./features/admin/pages/company/company').then(m => m.Company),
+      },
+    ],
+  },
+
+  { path: '**', redirectTo: '' },
+];

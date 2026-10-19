@@ -1,27 +1,12 @@
-export type JobStatus = 'open' | 'closed';
-export type JobType = 'Full-time' | 'Part-time' | 'Internship' | 'Contract';
+// Applications are not part of the API yet, so these types only describe the
+// placeholder applicant screens. Jobs now use the shared API types in
+// core/models/api.models.ts.
 
-// TEMPORARY: replace with the shared type once the team agrees on one
 export type ApplicationStatus = 'pending' | 'reviewed' | 'shortlisted' | 'rejected' | 'hired';
 
 export const APPLICATION_STATUSES: ApplicationStatus[] = [
   'pending', 'reviewed', 'shortlisted', 'rejected', 'hired',
 ];
-
-export interface Job {
-  id: number;
-  title: string;
-  description: string;
-  location: string;
-  type: JobType;
-  skills: string[];
-  salary?: string;
-  deadline: string;
-  status: JobStatus;
-  postedAt: string;
-}
-
-export type JobInput = Omit<Job, 'id' | 'postedAt' | 'status'>;
 
 export interface Applicant {
   id: number;
@@ -34,11 +19,4 @@ export interface Applicant {
   appliedAt: string;
   experience: string;
   bio: string;
-}
-
-export interface CompanyStats {
-  activeJobs: number;
-  totalApplicants: number;
-  shortlisted: number;
-  recent: Applicant[];
 }

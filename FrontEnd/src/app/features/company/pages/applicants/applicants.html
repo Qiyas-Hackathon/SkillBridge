@@ -1,12 +1,16 @@
 <a routerLink="/company/jobs">← Back to jobs</a>
 
-<h1>Applicants @if (job) { for {{ job.title }} }</h1>
+<h1>Applicants @if (job(); as job) { for {{ job.title }} }</h1>
 
-@if (applicants.length === 0) {
+<p class="notice-banner">
+  Applications are not available on the server yet, so there are no applicants to show.
+</p>
+
+@if (applicants().length === 0) {
   <p class="empty">No applicants yet.</p>
 } @else {
   <div class="grid">
-    @for (a of applicants; track a.id) {
+    @for (a of applicants(); track a.id) {
       <app-applicant-card [applicant]="a" />
     }
   </div>

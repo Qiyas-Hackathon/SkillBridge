@@ -1,0 +1,33 @@
+<h1>Company profile</h1>
+
+@if (loading()) {
+  <p class="loading-text">Loading...</p>
+} @else {
+  <form [formGroup]="form" (ngSubmit)="save()">
+    @if (error()) {
+      <p class="form-error">{{ error() }}</p>
+    }
+    @if (saved()) {
+      <p class="saved">Profile saved.</p>
+    }
+
+    <label>Company name
+      <input formControlName="companyName" />
+      @if (form.controls.companyName.invalid && form.controls.companyName.touched) {
+        <small>Company name is required (max 200 characters)</small>
+      }
+    </label>
+
+    <label>Description
+      <textarea rows="6" formControlName="description"
+                placeholder="Tell candidates about your company"></textarea>
+      @if (form.controls.description.invalid) {
+        <small>Description must be 1000 characters or fewer</small>
+      }
+    </label>
+
+    <button type="submit" [disabled]="saving()">
+      {{ saving() ? 'Saving...' : 'Save profile' }}
+    </button>
+  </form>
+}

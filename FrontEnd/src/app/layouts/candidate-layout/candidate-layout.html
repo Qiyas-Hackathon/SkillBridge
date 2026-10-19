@@ -22,13 +22,13 @@
       <div class="candidate-mini-profile">
   
         <div class="avatar">
-          {{ candidateName.charAt(0) }}
+          {{ candidateName().charAt(0) }}
         </div>
   
         <div>
   
           <strong>
-            {{ candidateName }}
+            {{ candidateName() }}
           </strong>
   
           <span>
@@ -125,7 +125,7 @@
   
       <div class="sidebar-bottom">
   
-        <button class="logout-button">
+        <button type="button" class="logout-button" (click)="logout()">
   
           <span class="nav-icon">
             🚪
@@ -168,13 +168,13 @@
         <div class="topbar-profile">
   
           <div class="topbar-avatar">
-            {{ candidateName.charAt(0) }}
+            {{ candidateName().charAt(0) }}
           </div>
   
           <div class="topbar-user">
   
             <strong>
-              {{ candidateName }}
+              {{ candidateName() }}
             </strong>
   
             <span>

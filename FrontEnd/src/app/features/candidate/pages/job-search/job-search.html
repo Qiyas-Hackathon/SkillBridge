@@ -13,31 +13,33 @@
         <input
           type="text"
           placeholder="Search jobs, companies, or skills..."
-          [(ngModel)]="searchTerm">
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="onFilterChange()">
       </div>
   
-      <select [(ngModel)]="selectedLocation">
-        <option value="All Locations">All Locations</option>
-        <option value="Addis Ababa">Addis Ababa</option>
-        <option value="Remote">Remote</option>
-      </select>
-  
-      <select [(ngModel)]="selectedJobType">
-        <option value="All Types">All Types</option>
-        <option value="Full-time">Full-time</option>
-        <option value="Internship">Internship</option>
+      <select
+        [(ngModel)]="selectedSkillId"
+        (ngModelChange)="onFilterChange()">
+        <option [ngValue]="null">All Skills</option>
+        @for (skill of skills(); track skill.id) {
+          <option [ngValue]="skill.id">{{ skill.name }}</option>
+        }
       </select>
   
     </section>
+
+    @if (error()) {
+      <p class="form-error">{{ error() }}</p>
+    }
   
     <div class="results-header">
       <h2>Available Opportunities</h2>
-      <span>{{ filteredJobs.length }} opportunities found</span>
+      <span>{{ loading() ? 'Loading...' : jobs().length + ' opportunities found' }}</span>
     </div>
   
     <section class="jobs-grid">
   
-      @for (job of filteredJobs; track job.id) {
+      @for (job of jobs(); track job.id) {
   
         <app-job-card
           [job]="job">
@@ -47,7 +49,7 @@
   
     </section>
   
-    @if (filteredJobs.length === 0) {
+    @if (!loading() && jobs().length === 0 && !error()) {
   
       <div class="empty-state">
   

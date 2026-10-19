@@ -1,0 +1,22 @@
+<div class="company-layout">
+  <header class="topbar">
+    <a routerLink="/company/dashboard" class="brand">Skill<span>Bridge</span></a>
+
+    <nav>
+      <a routerLink="/company/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/company/jobs" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">My Jobs</a>
+      <a routerLink="/company/jobs/create" routerLinkActive="active">Post a Job</a>
+      <a routerLink="/company/applicants" routerLinkActive="active">Applicants</a>
+      <a routerLink="/company/profile" routerLinkActive="active">Company Profile</a>
+    </nav>
+
+    <div class="user">
+      <span class="name">{{ companyName() }}</span>
+      <button type="button" (click)="logout()">Logout</button>
+    </div>
+  </header>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

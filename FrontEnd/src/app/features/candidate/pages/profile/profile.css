@@ -600,3 +600,34 @@
   }
 
 }
+/* ---- skills management ---- */
+.skill-remove {
+  margin-left: 6px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.add-skill {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.add-skill select {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.hint {
+  color: #6b7280;
+  font-size: 14px;
+}

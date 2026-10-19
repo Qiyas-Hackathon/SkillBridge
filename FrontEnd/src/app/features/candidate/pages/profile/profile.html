@@ -1,478 +1,244 @@
 <div class="profile-page">
 
-    <!-- ==========================================
-         PAGE HEADER
-    =========================================== -->
-  
-    <header class="page-header">
-  
-      <div>
-        <h1>My Profile</h1>
-  
-        <p>
-          Manage your personal information, skills and professional experience.
-        </p>
-      </div>
-  
-      @if (!isEditing) {
-  
-        <button
-          type="button"
-          class="edit-button"
-          (click)="editProfile()">
-  
-          ✏ Edit Profile
-  
-        </button>
-  
-      }
-  
-    </header>
-  
-  
-    <!-- ==========================================
-         PROFILE VIEW
-    =========================================== -->
-  
-    @if (!isEditing) {
-  
-      <section class="profile-card">
-  
-        <!-- Profile Header -->
-  
-        <div class="profile-header">
-  
-          <div class="profile-avatar">
-            {{ candidate.fullName.charAt(0) }}
-          </div>
-  
-          <div class="profile-header-info">
-  
-            <h2>
-              {{ candidate.fullName }}
-            </h2>
-  
-            <p class="headline">
-              {{ candidate.headline }}
-            </p>
-  
-            <p class="location">
-              📍 {{ candidate.location }}
-            </p>
-  
-          </div>
-  
-        </div>
-  
-  
-        <!-- Contact -->
-  
-        <div class="profile-section">
-  
-          <h3>Contact Information</h3>
-  
-          <div class="contact-grid">
-  
-            <div class="contact-item">
-  
-              <span class="label">
-                Email
-              </span>
-  
-              <strong>
-                {{ candidate.email }}
-              </strong>
-  
-            </div>
-  
-  
-            <div class="contact-item">
-  
-              <span class="label">
-                Phone
-              </span>
-  
-              <strong>
-                {{ candidate.phone }}
-              </strong>
-  
-            </div>
-  
-          </div>
-  
-        </div>
-  
-  
-        <!-- About -->
-  
-        <div class="profile-section">
-  
-          <h3>Professional Summary</h3>
-  
-          <p>
-            {{ candidate.summary }}
-          </p>
-  
-        </div>
-  
-  
-        <!-- Skills -->
-  
-        <div class="profile-section">
-  
-          <h3>Skills</h3>
-  
-          <div class="skills-list">
-  
-            @for (skill of candidate.skills; track skill) {
-  
-              <span class="skill">
-                {{ skill }}
-              </span>
-  
-            }
-  
-          </div>
-  
-        </div>
-  
-  
-        <!-- Education -->
-  
-        <div class="profile-section">
-  
-          <h3>Education</h3>
-  
-          @for (
-            education of candidate.education;
-            track education.degree
-          ) {
-  
-            <div class="education-item">
-  
-              <h4>
-                {{ education.degree }}
-              </h4>
-  
-              <p class="institution">
-                {{ education.institution }}
-              </p>
-  
-              <p class="year">
-                {{ education.year }}
-              </p>
-  
-            </div>
-  
-          }
-  
-        </div>
-  
-  
-        <!-- Experience -->
-  
-        <div class="profile-section">
-  
-          <h3>Experience</h3>
-  
-          @for (
-            experience of candidate.experience;
-            track experience.position
-          ) {
-  
-            <div class="experience-item">
-  
-              <h4>
-                {{ experience.position }}
-              </h4>
-  
-              <p class="company">
-                {{ experience.company }}
-              </p>
-  
-              <p class="period">
-                {{ experience.period }}
-              </p>
-  
-              <p class="description">
-                {{ experience.description }}
-              </p>
-  
-            </div>
-  
-          }
-  
-        </div>
-  
-  
-        <!-- Professional Links -->
-  
-        <div class="profile-section">
-  
-          <h3>Professional Links</h3>
-  
-          <div class="profile-links">
-  
-            <a
-              [href]="candidate.github"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="profile-link">
-              GitHub →
-            </a>
-  
-            <a
-              [href]="candidate.linkedin"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="profile-link">
-              LinkedIn →
-            </a>
-  
-            <a
-              [href]="candidate.portfolio"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="profile-link">
-              Portfolio →
-            </a>
-  
-          </div>
-  
-        </div>
-  
-  
-        <!-- Resume -->
-  
-        <div class="profile-section">
-  
-          <h3>Resume</h3>
-  
-          <div class="resume-box">
-  
-            <div class="resume-icon">
-              📄
-            </div>
-  
-            <div class="resume-info">
-  
-              <strong>
-                {{ candidate.resume }}
-              </strong>
-  
-              <span>
-                Current resume
-              </span>
-  
-            </div>
-  
-            <button
-              type="button"
-              class="resume-button">
-              View
-            </button>
-  
-          </div>
-  
-        </div>
-  
-      </section>
-  
+  <header class="page-header">
+
+    <div>
+      <h1>My Profile</h1>
+
+      <p>
+        Manage your personal information and skills.
+      </p>
+    </div>
+
+    @if (!isEditing() && candidate()) {
+      <button
+        type="button"
+        class="edit-button"
+        (click)="editProfile()">
+        ✏ Edit Profile
+      </button>
     }
-  
-  
-    <!-- ==========================================
-         EDIT PROFILE
-    =========================================== -->
-  
-    @if (isEditing) {
-  
-      <section class="edit-card">
-  
-        <div class="edit-header">
-  
-          <div>
-            <h2>Edit Profile</h2>
-  
-            <p>
-              Update your personal and professional information.
-            </p>
-          </div>
-  
+
+  </header>
+
+  @if (loading()) {
+    <p class="loading-text">Loading...</p>
+  }
+
+  @if (error()) {
+    <p class="form-error">{{ error() }}</p>
+  }
+
+  <!-- PROFILE VIEW -->
+
+  @if (!loading() && !isEditing() && candidate(); as c) {
+
+    <section class="profile-card">
+
+      <div class="profile-header">
+
+        <div class="profile-avatar">
+          {{ c.fullName.charAt(0) }}
         </div>
-  
-  
-        <!-- Full Name -->
-  
-        <div class="form-group">
-  
-          <label for="fullName">
-            Full Name
-          </label>
-  
-          <input
-            id="fullName"
-            type="text"
-            [(ngModel)]="candidate.fullName">
-  
+
+        <div class="profile-header-info">
+
+          <h2>{{ c.fullName }}</h2>
+
+          @if (c.headline) {
+            <p class="headline">{{ c.headline }}</p>
+          }
+
+          <p class="location">
+            🎓 {{ c.institution }}
+          </p>
+
         </div>
-  
-  
-        <!-- Headline -->
-  
-        <div class="form-group">
-  
-          <label for="headline">
-            Professional Headline
-          </label>
-  
-          <input
-            id="headline"
-            type="text"
-            [(ngModel)]="candidate.headline">
-  
+
+      </div>
+
+
+      <div class="profile-section">
+
+        <h3>Education</h3>
+
+        <div class="education-item">
+
+          <h4>
+            {{ c.degreeLevel || 'Degree not set' }}
+            @if (c.fieldOfStudy) { in {{ c.fieldOfStudy }} }
+          </h4>
+
+          <p class="institution">{{ c.institution }}</p>
+
+          @if (c.graduationYear) {
+            <p class="year">Graduation: {{ c.graduationYear }}</p>
+          }
+
         </div>
-  
-  
-        <!-- Location -->
-  
-        <div class="form-group">
-  
-          <label for="location">
-            Location
-          </label>
-  
-          <input
-            id="location"
-            type="text"
-            [(ngModel)]="candidate.location">
-  
+
+      </div>
+
+
+      <div class="profile-section">
+
+        <h3>Skills</h3>
+
+        <div class="skills-list">
+
+          @for (skill of c.skills; track skill.id) {
+            <span class="skill">
+              {{ skill.name }}
+              <button
+                type="button"
+                class="skill-remove"
+                [attr.aria-label]="'Remove ' + skill.name"
+                (click)="removeSkill(skill)">×</button>
+            </span>
+          } @empty {
+            <p class="hint">No skills yet. Add some below so jobs can be matched to you.</p>
+          }
+
         </div>
-  
-  
-        <!-- Email -->
-  
-        <div class="form-group">
-  
-          <label for="email">
-            Email
-          </label>
-  
-          <input
-            id="email"
-            type="email"
-            [(ngModel)]="candidate.email">
-  
-        </div>
-  
-  
-        <!-- Phone -->
-  
-        <div class="form-group">
-  
-          <label for="phone">
-            Phone Number
-          </label>
-  
-          <input
-            id="phone"
-            type="text"
-            [(ngModel)]="candidate.phone">
-  
-        </div>
-  
-  
-        <!-- Summary -->
-  
-        <div class="form-group">
-  
-          <label for="summary">
-            Professional Summary
-          </label>
-  
-          <textarea
-            id="summary"
-            rows="6"
-            [(ngModel)]="candidate.summary">
-          </textarea>
-  
-        </div>
-  
-  
-        <!-- GitHub -->
-  
-        <div class="form-group">
-  
-          <label for="github">
-            GitHub URL
-          </label>
-  
-          <input
-            id="github"
-            type="url"
-            [(ngModel)]="candidate.github">
-  
-        </div>
-  
-  
-        <!-- LinkedIn -->
-  
-        <div class="form-group">
-  
-          <label for="linkedin">
-            LinkedIn URL
-          </label>
-  
-          <input
-            id="linkedin"
-            type="url"
-            [(ngModel)]="candidate.linkedin">
-  
-        </div>
-  
-  
-        <!-- Portfolio -->
-  
-        <div class="form-group">
-  
-          <label for="portfolio">
-            Portfolio URL
-          </label>
-  
-          <input
-            id="portfolio"
-            type="url"
-            [(ngModel)]="candidate.portfolio">
-  
-        </div>
-  
-  
-        <!-- Actions -->
-  
-        <div class="edit-actions">
-  
-          <button
-            type="button"
-            class="cancel-button"
-            (click)="cancelEdit()">
-  
-            Cancel
-  
-          </button>
-  
+
+        <div class="add-skill">
+
+          <select [(ngModel)]="selectedSkillId" name="skill">
+            <option [ngValue]="null">Choose a skill to add...</option>
+            @for (s of availableSkills(); track s.id) {
+              <option [ngValue]="s.id">{{ s.name }}</option>
+            }
+          </select>
+
           <button
             type="button"
             class="save-button"
-            (click)="saveProfile()">
-  
-            Save Changes
-  
+            [disabled]="selectedSkillId === null"
+            (click)="addSkill()">
+            Add skill
           </button>
-  
+
         </div>
-  
-      </section>
-  
-    }
-  
-  </div>
+
+      </div>
+
+
+      @if (c.gitHubUrl || c.portfolioUrl) {
+
+        <div class="profile-section">
+
+          <h3>Professional Links</h3>
+
+          <div class="profile-links">
+
+            @if (c.gitHubUrl) {
+              <a
+                [href]="c.gitHubUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="profile-link">
+                GitHub →
+              </a>
+            }
+
+            @if (c.portfolioUrl) {
+              <a
+                [href]="c.portfolioUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="profile-link">
+                Portfolio →
+              </a>
+            }
+
+          </div>
+
+        </div>
+
+      }
+
+    </section>
+
+  }
+
+
+  <!-- EDIT / CREATE PROFILE -->
+
+  @if (!loading() && isEditing()) {
+
+    <section class="edit-card">
+
+      <div class="edit-header">
+
+        <div>
+          <h2>{{ candidate() ? 'Edit Profile' : 'Create your profile' }}</h2>
+
+          <p>
+            Update your personal and education information.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" type="text" name="fullName" [(ngModel)]="form.fullName">
+      </div>
+
+      <div class="form-group">
+        <label for="headline">Professional Headline</label>
+        <input id="headline" type="text" name="headline" [(ngModel)]="form.headline">
+      </div>
+
+      <div class="form-group">
+        <label for="institution">Institution</label>
+        <input id="institution" type="text" name="institution" [(ngModel)]="form.institution">
+      </div>
+
+      <div class="form-group">
+        <label for="fieldOfStudy">Field of Study</label>
+        <input id="fieldOfStudy" type="text" name="fieldOfStudy" [(ngModel)]="form.fieldOfStudy">
+      </div>
+
+      <div class="form-group">
+        <label for="degreeLevel">Degree Level</label>
+        <input id="degreeLevel" type="text" name="degreeLevel" [(ngModel)]="form.degreeLevel"
+               placeholder="e.g. Bachelor's">
+      </div>
+
+      <div class="form-group">
+        <label for="graduationYear">Graduation Year</label>
+        <input id="graduationYear" type="number" name="graduationYear" [(ngModel)]="form.graduationYear">
+      </div>
+
+      <div class="form-group">
+        <label for="github">GitHub URL</label>
+        <input id="github" type="url" name="github" [(ngModel)]="form.gitHubUrl"
+               placeholder="https://github.com/username">
+      </div>
+
+      <div class="form-group">
+        <label for="portfolio">Portfolio URL</label>
+        <input id="portfolio" type="url" name="portfolio" [(ngModel)]="form.portfolioUrl"
+               placeholder="https://your-portfolio.com">
+      </div>
+
+      <div class="edit-actions">
+
+        @if (candidate()) {
+          <button type="button" class="cancel-button" (click)="cancelEdit()">
+            Cancel
+          </button>
+        }
+
+        <button type="button" class="save-button" [disabled]="saving()" (click)="saveProfile()">
+          {{ saving() ? 'Saving...' : 'Save Changes' }}
+        </button>
+
+      </div>
+
+    </section>
+
+  }
+
+</div>

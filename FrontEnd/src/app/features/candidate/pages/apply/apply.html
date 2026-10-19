@@ -1,12 +1,19 @@
 <div class="apply-page">
 
     <a
-      href="/candidate/jobs/{{ job.id }}"
+      [routerLink]="job() ? ['/candidate/jobs', job()!.id] : ['/candidate/jobs']"
       class="cancel-button">
       ← Cancel
     </a>
+
+    @if (error()) {
+      <p class="form-error">{{ error() }}</p>
+    }
+
+    @if (notice()) {
+      <p class="notice-banner">{{ notice() }}</p>
+    }
   
-    @if (!submitted) {
   
       <header class="page-header">
         <h1>Apply for Job</h1>
@@ -15,11 +22,9 @@
   
       <section class="job-summary">
   
-        <h2>{{ job.title }}</h2>
+        <h2>{{ job()?.title }}</h2>
   
-        <p>{{ job.company }}</p>
-  
-        <p>📍 {{ job.location }}</p>
+        <p>{{ job()?.companyName }}</p>
   
       </section>
   
@@ -124,45 +129,5 @@
         </button>
   
       </form>
-  
-    } @else {
-  
-      <div class="success-message">
-  
-        <div class="success-icon">
-          ✓
-        </div>
-  
-        <h2>
-          Application Submitted!
-        </h2>
-  
-        <p>
-          Your application for
-          <strong>{{ job.title }}</strong>
-          at
-          <strong>{{ job.company }}</strong>
-          has been submitted successfully.
-        </p>
-  
-        <div class="success-actions">
-  
-          <a
-            href="/candidate/applications"
-            class="success-button">
-            View My Applications
-          </a>
-  
-          <a
-            href="/candidate/jobs"
-            class="success-button secondary">
-            Browse More Jobs
-          </a>
-  
-        </div>
-  
-      </div>
-  
-    }
   
   </div>

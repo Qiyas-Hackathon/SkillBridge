@@ -9,6 +9,10 @@
 
     <form (submit)="onSubmit(); $event.preventDefault()">
 
+      @if (error()) {
+        <p class="form-error">{{ error() }}</p>
+      }
+
       <div class="form-group">
         <label for="email">Email</label>
 
@@ -35,8 +39,8 @@
         />
       </div>
 
-      <button type="submit" class="login-button">
-        Login
+      <button type="submit" class="login-button" [disabled]="loading()">
+        {{ loading() ? 'Signing in...' : 'Login' }}
       </button>
 
     </form>

@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Job, JobRequest } from '../../../../core/models/api.models';
+import { JobsService } from '../../../../core/services/jobs.service';
+import { errorMessage } from '../../../../core/utils/errors';
 import { JobForm } from '../../components/job-form/job-form';
-import { Job, JobInput } from '../../models/company.model';
-import { CompanyService } from '../../services/company.service';
 
 @Component({
   selector: 'app-post-job',
@@ -12,23 +13,38 @@ import { CompanyService } from '../../services/company.service';
   styleUrl: './post-job.css',
 })
 export class PostJob {
-  private service = inject(CompanyService);
+  private jobsApi = inject(JobsService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
   jobId = Number(this.route.snapshot.paramMap.get('id')) || null;
   job: Job | null = null;
+  saving = signal(false);
+  error = signal('');
 
   constructor() {
     if (this.jobId) {
-      this.service.getJob(this.jobId).subscribe(j => (this.job = j ?? null));
+      this.jobsApi.get(this.jobId).subscribe({
+        next: j => (this.job = j),
+        error: err => this.error.set(errorMessage(err, 'Could not load this job.')),
+      });
     }
   }
 
-  save(input: JobInput) {
+  save(input: JobRequest) {
+    this.saving.set(true);
+    this.error.set('');
+
     const request = this.jobId
-      ? this.service.updateJob(this.jobId, input)
-      : this.service.addJob(input);
-    request.subscribe(() => this.router.navigate(['/company/jobs']));
+      ? this.jobsApi.update(this.jobId, input)
+      : this.jobsApi.create(input);
+
+    request.subscribe({
+      next: () => this.router.navigate(['/company/jobs']),
+      error: err => {
+        this.saving.set(false);
+        this.error.set(errorMessage(err, 'Could not save the job.'));
+      },
+    });
   }
 }

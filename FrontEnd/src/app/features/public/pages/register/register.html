@@ -63,116 +63,128 @@
     </div>
 
 
+    @if (error()) {
+      <p class="form-error">{{ error() }}</p>
+    }
+
+
     <!-- Candidate Registration -->
 
     @if (accountType === 'candidate') {
 
-      <form class="register-form">
+      <form class="register-form" [formGroup]="candidateForm" (ngSubmit)="submitCandidate()">
 
         <h2>Job Seeker Registration</h2>
 
         <div class="form-group">
-
-          <label for="candidateName">
-            Full Name
-          </label>
-
-          <input
-            id="candidateName"
-            type="text"
-            placeholder="Enter your full name"
-          />
-
+          <label for="candidateName">Full Name</label>
+          <input id="candidateName" type="text" formControlName="fullName"
+                 placeholder="Enter your full name" />
+          @if (invalid('candidate', 'fullName')) {
+            <small class="field-error">Full name is required.</small>
+          }
         </div>
-
 
         <div class="form-group">
-
-          <label for="candidateEmail">
-            Email
-          </label>
-
-          <input
-            id="candidateEmail"
-            type="email"
-            placeholder="Enter your email"
-          />
-
+          <label for="candidateEmail">Email</label>
+          <input id="candidateEmail" type="email" formControlName="email"
+                 placeholder="Enter your email" />
+          @if (invalid('candidate', 'email')) {
+            <small class="field-error">Enter a valid email address.</small>
+          }
         </div>
-
 
         <div class="form-row">
-
           <div class="form-group">
-
-            <label for="candidatePassword">
-              Password
-            </label>
-
-            <input
-              id="candidatePassword"
-              type="password"
-              placeholder="Create a password"
-            />
-
+            <label for="candidatePassword">Password</label>
+            <input id="candidatePassword" type="password" formControlName="password"
+                   placeholder="Create a password" />
+            @if (invalid('candidate', 'password')) {
+              <small class="field-error">
+                At least 8 characters with an uppercase letter, a lowercase letter and a number.
+              </small>
+            }
           </div>
 
-
           <div class="form-group">
+            <label for="candidateConfirmPassword">Confirm Password</label>
+            <input id="candidateConfirmPassword" type="password" formControlName="confirmPassword"
+                   placeholder="Confirm your password" />
+            @if (candidateForm.hasError('mismatch') && candidateForm.controls.confirmPassword.touched) {
+              <small class="field-error">Passwords do not match.</small>
+            }
+          </div>
+        </div>
 
-            <label for="candidateConfirmPassword">
-              Confirm Password
-            </label>
+        <div class="form-group">
+          <label for="headline">Headline <span>(Optional)</span></label>
+          <input id="headline" type="text" formControlName="headline"
+                 placeholder="e.g. Junior Full Stack Developer" />
+        </div>
 
-            <input
-              id="candidateConfirmPassword"
-              type="password"
-              placeholder="Confirm your password"
-            />
+        <div class="form-group">
+          <label for="institution">Institution</label>
+          <input id="institution" type="text" formControlName="institution"
+                 placeholder="e.g. Addis Ababa University" />
+          @if (invalid('candidate', 'institution')) {
+            <small class="field-error">Institution is required.</small>
+          }
+        </div>
 
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fieldOfStudy">Field of Study</label>
+            <input id="fieldOfStudy" type="text" formControlName="fieldOfStudy"
+                   placeholder="e.g. Computer Science" />
+            @if (invalid('candidate', 'fieldOfStudy')) {
+              <small class="field-error">Field of study is required.</small>
+            }
           </div>
 
+          <div class="form-group">
+            <label for="degreeLevel">Degree Level</label>
+            <select id="degreeLevel" formControlName="degreeLevel">
+              <option value="" disabled>Select degree</option>
+              @for (d of degreeLevels; track d) {
+                <option [value]="d">{{ d }}</option>
+              }
+            </select>
+            @if (invalid('candidate', 'degreeLevel')) {
+              <small class="field-error">Choose a degree level.</small>
+            }
+          </div>
         </div>
-
 
         <div class="form-group">
-
-          <label for="skills">
-            Skills
-          </label>
-
-          <input
-            id="skills"
-            type="text"
-            placeholder="e.g. Angular, C#, SQL"
-          />
-
-          <small>
-            Separate multiple skills with commas.
-          </small>
-
+          <label for="graduationYear">Graduation Year</label>
+          <input id="graduationYear" type="number" formControlName="graduationYear" />
+          @if (invalid('candidate', 'graduationYear')) {
+            <small class="field-error">Enter a year between 2000 and 2100.</small>
+          }
         </div>
-
 
         <div class="form-group">
-
-          <label for="github">
-            GitHub URL
-            <span>(Optional)</span>
-          </label>
-
-          <input
-            id="github"
-            type="url"
-            placeholder="https://github.com/username"
-          />
-
+          <label for="github">GitHub URL <span>(Optional)</span></label>
+          <input id="github" type="url" formControlName="gitHubUrl"
+                 placeholder="https://github.com/username" />
+          @if (invalid('candidate', 'gitHubUrl')) {
+            <small class="field-error">Enter a full URL starting with http:// or https://</small>
+          }
         </div>
 
+        <div class="form-group">
+          <label for="portfolio">Portfolio URL <span>(Optional)</span></label>
+          <input id="portfolio" type="url" formControlName="portfolioUrl"
+                 placeholder="https://your-portfolio.com" />
+          @if (invalid('candidate', 'portfolioUrl')) {
+            <small class="field-error">Enter a full URL starting with http:// or https://</small>
+          }
+        </div>
 
-        <button type="submit" class="submit-btn"
-        routerLink="/candidate/dashboard">
-          Create Job Seeker Account
+        <small>You can add your skills from your profile after signing up.</small>
+
+        <button type="submit" class="submit-btn" [disabled]="loading()">
+          {{ loading() ? 'Creating account...' : 'Create Job Seeker Account' }}
         </button>
 
       </form>
@@ -184,108 +196,72 @@
 
     @if (accountType === 'company') {
 
-      <form class="register-form">
+      <form class="register-form" [formGroup]="companyForm" (ngSubmit)="submitCompany()">
 
         <h2>Company Registration</h2>
 
         <div class="form-group">
-
-          <label for="companyName">
-            Company Name
-          </label>
-
-          <input
-            id="companyName"
-            type="text"
-            placeholder="Enter company name"
-          />
-
+          <label for="companyName">Company Name</label>
+          <input id="companyName" type="text" formControlName="companyName"
+                 placeholder="Enter company name" />
+          @if (invalid('company', 'companyName')) {
+            <small class="field-error">Company name is required.</small>
+          }
         </div>
-
 
         <div class="form-group">
-
-          <label for="companyEmail">
-            Company Email
-          </label>
-
-          <input
-            id="companyEmail"
-            type="email"
-            placeholder="company@example.com"
-          />
-
+          <label for="contactName">Contact Person</label>
+          <input id="contactName" type="text" formControlName="contactName"
+                 placeholder="Your full name" />
+          @if (invalid('company', 'contactName')) {
+            <small class="field-error">Contact name is required.</small>
+          }
         </div>
-
 
         <div class="form-group">
-
-          <label for="companyDescription">
-            Company Description
-          </label>
-
-          <textarea
-            id="companyDescription"
-            rows="4"
-            placeholder="Tell us about your company"
-          ></textarea>
-
+          <label for="companyEmail">Company Email</label>
+          <input id="companyEmail" type="email" formControlName="email"
+                 placeholder="company@example.com" />
+          @if (invalid('company', 'email')) {
+            <small class="field-error">Enter a valid email address.</small>
+          }
         </div>
-
 
         <div class="form-group">
-
-          <label for="companyLocation">
-            Location
-          </label>
-
-          <input
-            id="companyLocation"
-            type="text"
-            placeholder="e.g. Addis Ababa, Ethiopia"
-          />
-
+          <label for="companyWebsite">Website <span>(Optional)</span></label>
+          <input id="companyWebsite" type="url" formControlName="website"
+                 placeholder="https://yourcompany.com" />
+          @if (invalid('company', 'website')) {
+            <small class="field-error">Enter a full URL starting with http:// or https://</small>
+          }
         </div>
-
 
         <div class="form-row">
-
           <div class="form-group">
-
-            <label for="companyPassword">
-              Password
-            </label>
-
-            <input
-              id="companyPassword"
-              type="password"
-              placeholder="Create a password"
-            />
-
+            <label for="companyPassword">Password</label>
+            <input id="companyPassword" type="password" formControlName="password"
+                   placeholder="Create a password" />
+            @if (invalid('company', 'password')) {
+              <small class="field-error">
+                At least 8 characters with an uppercase letter, a lowercase letter and a number.
+              </small>
+            }
           </div>
 
-
           <div class="form-group">
-
-            <label for="companyConfirmPassword">
-              Confirm Password
-            </label>
-
-            <input
-              id="companyConfirmPassword"
-              type="password"
-              placeholder="Confirm your password"
-            />
-
+            <label for="companyConfirmPassword">Confirm Password</label>
+            <input id="companyConfirmPassword" type="password" formControlName="confirmPassword"
+                   placeholder="Confirm your password" />
+            @if (companyForm.hasError('mismatch') && companyForm.controls.confirmPassword.touched) {
+              <small class="field-error">Passwords do not match.</small>
+            }
           </div>
-
         </div>
 
+        <small>You can add a company description from your profile after signing up.</small>
 
-        <button type="submit" class="submit-btn"
-        routerLink="/company/dashboard">
-            
-          Create Company Account
+        <button type="submit" class="submit-btn" [disabled]="loading()">
+          {{ loading() ? 'Creating account...' : 'Create Company Account' }}
         </button>
 
       </form>

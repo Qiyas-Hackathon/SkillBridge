@@ -121,6 +121,7 @@
 }
 
 .form-group input,
+.form-group select,
 .form-group textarea {
   width: 100%;
   box-sizing: border-box;
@@ -133,6 +134,7 @@
 }
 
 .form-group input:focus,
+.form-group select:focus,
 .form-group textarea:focus {
   border-color: #4f46e5;
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
@@ -209,4 +211,14 @@
   .register-header h1 {
     font-size: 30px;
   }
+}
+/* Validation messages must stand out from the grey helper text above */
+.form-group small.field-error {
+  color: #b91c1c;
+  font-weight: 500;
+}
+
+.form-group input.ng-invalid.ng-touched,
+.form-group select.ng-invalid.ng-touched {
+  border-color: #dc2626;
 }
