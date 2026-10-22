@@ -9,4 +9,5 @@ public class ApplicationUser : IdentityUser<int>
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
       public string? ProfilePicturePath { get; set; }
+      public bool IsActive { get; set; } = true;  
 }

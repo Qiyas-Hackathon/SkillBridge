@@ -17,7 +17,7 @@ namespace SkillBridge.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.12")
+                .HasAnnotation("ProductVersion", "10.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -244,6 +244,9 @@ namespace SkillBridge.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
+                    b.Property<string>("ContactName")
+                        .HasColumnType("text");
+
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
@@ -257,6 +260,9 @@ namespace SkillBridge.Infrastructure.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Website")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -277,6 +283,9 @@ namespace SkillBridge.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<DateTime?>("Deadline")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(5000)
@@ -285,8 +294,28 @@ namespace SkillBridge.Infrastructure.Migrations
                     b.Property<int>("EmployerProfileId")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<int>("JobType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SalaryCurrency")
+                        .HasColumnType("text");
+
+                    b.Property<decimal?>("SalaryMax")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("numeric(12,2)");
+
+                    b.Property<decimal?>("SalaryMin")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -298,6 +327,45 @@ namespace SkillBridge.Infrastructure.Migrations
                     b.HasIndex("EmployerProfileId");
 
                     b.ToTable("Jobs");
+                });
+
+            modelBuilder.Entity("SkillBridge.Domain.Entities.JobApplication", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AppliedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("CandidateProfileId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CoverLetter")
+                        .HasMaxLength(4000)
+                        .HasColumnType("character varying(4000)");
+
+                    b.Property<int>("JobId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CandidateProfileId");
+
+                    b.HasIndex("JobId", "CandidateProfileId")
+                        .IsUnique();
+
+                    b.ToTable("JobApplications", (string)null);
                 });
 
             modelBuilder.Entity("SkillBridge.Domain.Entities.JobRequiredSkill", b =>
@@ -359,6 +427,9 @@ namespace SkillBridge.Infrastructure.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("LockoutEnabled")
@@ -491,6 +562,25 @@ namespace SkillBridge.Infrastructure.Migrations
                     b.Navigation("EmployerProfile");
                 });
 
+            modelBuilder.Entity("SkillBridge.Domain.Entities.JobApplication", b =>
+                {
+                    b.HasOne("SkillBridge.Domain.Entities.CandidateProfile", "CandidateProfile")
+                        .WithMany()
+                        .HasForeignKey("CandidateProfileId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SkillBridge.Domain.Entities.Job", "Job")
+                        .WithMany("Applications")
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CandidateProfile");
+
+                    b.Navigation("Job");
+                });
+
             modelBuilder.Entity("SkillBridge.Domain.Entities.JobRequiredSkill", b =>
                 {
                     b.HasOne("SkillBridge.Domain.Entities.Job", "Job")
@@ -522,6 +612,8 @@ namespace SkillBridge.Infrastructure.Migrations
 
             modelBuilder.Entity("SkillBridge.Domain.Entities.Job", b =>
                 {
+                    b.Navigation("Applications");
+
                     b.Navigation("RequiredSkills");
                 });
 

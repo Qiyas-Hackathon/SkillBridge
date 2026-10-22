@@ -21,6 +21,7 @@ public class SkillBridgeDbContext(
     public DbSet<Job> Jobs => Set<Job>();
 
     public DbSet<JobRequiredSkill> JobRequiredSkills => Set<JobRequiredSkill>();
+    public DbSet<JobApplication> JobApplications => Set<JobApplication>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

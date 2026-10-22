@@ -11,7 +11,7 @@ using SkillBridge.Domain.Constants;
 namespace SkillBridge.Api.Controllers;
 
 [ApiController]
-[Route("api/jobs")]
+[Route("api/job")]
 public class JobController : ControllerBase
 {
     private readonly ISender _sender;
